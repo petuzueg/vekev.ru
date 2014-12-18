@@ -1,0 +1,12 @@
+.rules {
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border: 1px solid grey;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+.red_cap {
+    color: red;
+    margin-bottom: 10px;
+}

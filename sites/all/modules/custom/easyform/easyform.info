@@ -1,0 +1,6 @@
+name = Easy Form
+description = Создает страницу с формой ввода новой заявки на аукцион
+core = 7.x
+
+stylesheets[all][] = css/easyform.css
+
