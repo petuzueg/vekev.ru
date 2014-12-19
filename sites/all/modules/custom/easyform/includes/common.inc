@@ -130,7 +130,7 @@ function _easyform_create_application($form, &$form_state) {
     );
   }
   $node->promote = 1; //(1 or 0): promoted to front page
-  $node->comment = 2; // 0 = comments disabled, 1 = read only, 2 = read/write
+ // $node->comment = 2; // 0 = comments disabled, 1 = read only, 2 = read/write
   $node->field_address_from[$node->language][] = array(
     'value' => $data['address_from']
   );

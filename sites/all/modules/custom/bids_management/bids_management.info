@@ -1,0 +1,6 @@
+name = Bids management
+description = Управление заявками для исполнителей
+core = 7.x
+
+stylesheets[all][] = css/easyform.css
+

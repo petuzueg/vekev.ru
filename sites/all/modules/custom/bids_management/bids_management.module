@@ -1,0 +1,124 @@
+<?php
+
+//bids_management
+
+/**
+ * Implements hook_block_info().
+ */
+/*function bids_management_block_info() {
+  // This example comes from node.module.
+  $blocks[''] = array(
+    'info' => t('Syndicate'),
+    'cache' => DRUPAL_NO_CACHE
+  );
+
+  $blocks['recent'] = array(
+    'info' => t('Recent content'),
+    // DRUPAL_CACHE_PER_ROLE will be assumed.
+  );
+
+  return $blocks;
+
+}*/
+
+/**
+ * Implements hook_block_view().
+ */
+/*function bids_management_block_view($delta = '') {
+  // This example is adapted from node.module.
+  $block = array();
+
+  switch ($delta) {
+    case 'syndicate':
+      $block['subject'] = t('Syndicate');
+      $block['content'] = array(
+        '#theme' => 'feed_icon',
+        '#url' => 'rss.xml',
+        '#title' => t('Syndicate'),
+      );
+      break;
+
+    case 'recent':
+      if (user_access('access content')) {
+        $block['subject'] = t('Recent content');
+        if ($nodes = node_get_recent(variable_get('node_recent_block_count', 10))) {
+          $block['content'] = array(
+            '#theme' => 'node_recent_block',
+            '#nodes' => $nodes,
+          );
+        } else {
+          $block['content'] = t('No content available.');
+        }
+      }
+      break;
+  }
+  return $block;
+
+}*/
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function bids_management_form_bid_node_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+
+  $app_id = arg(3);
+  if ($app_id && (array_key_exists(4, $user->roles) || array_key_exists(3, $user->roles))) {
+    // id заявки передан и группа пользователя "исполнитель" или "администратор"
+    $application = entity_metadata_wrapper('node', $app_id);
+    if ($application->type->value() == 'application') {
+      // если этот пользователь еще не добавлял ответ на данную заявку
+      $form['actions']['submit']['#submit'][] = 'bids_management_form_bid_node_form_submit';
+    } else {
+      drupal_not_found();
+      exit;
+    }
+
+  } else {
+    drupal_not_found();
+    exit;
+  }
+  //dsm($form_id);
+
+}
+
+/**
+ * Submit add bid form
+ */
+function bids_management_form_bid_node_form_submit(&$form, &$form_state) {
+  /*global $user;
+  $app_id = arg(3);
+
+  if ($app_id && (array_key_exists(4, $user->roles) || array_key_exists(3, $user->roles))) {
+    dsm($form_state);
+    $application = entity_metadata_wrapper('node', $app_id);
+    if ($application->type->value() == 'application') {
+      $application->field_bids->set();
+    }
+  }*/
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function bids_management_node_insert($node) {
+  //dsm($node);
+  global $user;
+
+  if ($node->type == 'bid') {
+    $app_id = arg(3);
+    if ($app_id && (array_key_exists(4, $user->roles) || array_key_exists(3, $user->roles))) {
+      $application_wrapper = entity_metadata_wrapper('node', $app_id);
+      $application_wrapper->field_bid[] = $node->nid;
+      $application_wrapper->save();
+    }
+  }
+/*
+  if ($app_id && (array_key_exists(4, $user->roles) || array_key_exists(3, $user->roles))) {
+    dsm($form_state);
+    $application = entity_metadata_wrapper('node', $app_id);
+    if ($application->type->value() == 'application') {
+      $application->field_bids->set();
+    }
+  }*/
+}
