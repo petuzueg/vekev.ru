@@ -10,27 +10,24 @@ module_load_include('inc', 'easyform', 'includes/validate_application_form');
 /**
  * Implements hook_menu().
  */
-
 function easyform_menu() {
   $items['new'] = array(
     'title' => 'Создать заявку',
     'page callback' => 'drupal_get_form',
-    //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
     'page arguments' => array('easyform_form'),
-    //put the name of the form here
     'access arguments' => array('access content'),
-//    'theme callback' => 'easyform_use_theme',
     'type' => MENU_CALLBACK,
   );
 
   $items['v'] = $items['v/%'] = array(
     'title' => 'Подтвердите заявку',
     'page callback' => 'drupal_get_form',
-    //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
+    // This is the function that will be called when the page is accessed.
+    // For a form, use drupal_get_form.
     'page arguments' => array('easyform_vform'),
-    //put the name of the form here
+    // Put the name of the form here.
     'access arguments' => array('access content'),
-   // 'theme callback' => 'easyform_use_theme',
+    // 'theme callback' => 'easyform_use_theme',
     'type' => MENU_CALLBACK,
   );
 
@@ -38,8 +35,13 @@ function easyform_menu() {
 }
 
 /**
- * Returns theme name for this page
+ * Implements hook_page_build().
  */
-/*function easyform_use_theme() {
-  return 'vkv';
-}*/
+function easyform_page_build(&$page) {
+  if (arg(0) == 'new') {
+    $crumbs = array();
+    $crumbs[] = l(t('Home'), '<front>');
+    $crumbs[] = 'Создать заявку на эвакуацию автомобиля';
+    drupal_set_breadcrumb($crumbs);
+  }
+}

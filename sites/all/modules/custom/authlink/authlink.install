@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function authlink_schema() {
+  $schema['authlink'] = array(
+    'description' => 'The table for authlink module.',
+    'fields' => array(
+      'cid' => array(
+        'description' => 'The primary identifier for a code record.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The uid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+      ),
+      'code' => array(
+        'description' => 'The code field.',
+        'type' => 'varchar',
+        'length' => 25,
+        'default' => '',
+      ),
+      'path' => array(
+        'description' => 'The path to redirect user to.',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '/',
+      ),
+      'created' => array(
+        'not null' => FALSE,
+        'pgsql_type' => 'timestamp',
+        'default' => date('Y-m-d G:i:s'),
+      ),
+      'activated' => array(
+        'not null' => FALSE,
+        'pgsql_type' => 'timestamp',
+        'default' => NULL,
+      ),
+    ),
+    'indexes' => array(
+      'code' => array('code'),
+    ),
+    'unique keys' => array(
+      'nid' => array('cid'),
+      'code' => array('code'),
+    ),
+    'foreign keys' => array(),
+    'primary key' => array('code'),
+  );
+  return $schema;
+
+}

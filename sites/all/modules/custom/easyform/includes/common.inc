@@ -22,14 +22,15 @@
 }*/
 
 /**
- * Gets application nid by activation code
- * @param $code
+ * Gets application nid by activation code.
+ *
+ * @param $code text
  * @param $entity_type = 'user'
  * @return int
  */
 function _easyform_get_entity_by_code($code, $entity_type = 'user') {
-  $nodeQuery = new EntityFieldQuery();
-  $entities = $nodeQuery->entityCondition('entity_type', $entity_type)
+  $node_query = new EntityFieldQuery();
+  $entities = $node_query->entityCondition('entity_type', $entity_type)
     ->fieldCondition('field_validation_code', 'value', $code, '=')
     ->propertyCondition('status', 0)
     ->pager(10)
@@ -72,7 +73,9 @@ function _easyform_create_application($form, &$form_state) {
   $account = new stdClass();
 
   if ($user->uid == 0) {
+    // todo uncomment random code generation
     $validation_code = rand(100, 999);
+    $validation_code = 123;
 
     // если существует, пользователя не создавать, после валидации телефона прикрепить заявку к пользователю
     $account->uid = db_query("SELECT uid FROM {users} WHERE name = :name;", array(':name' => $data['mobile']))->fetchField();
@@ -130,7 +133,7 @@ function _easyform_create_application($form, &$form_state) {
     );
   }
   $node->promote = 1; //(1 or 0): promoted to front page
- // $node->comment = 2; // 0 = comments disabled, 1 = read only, 2 = read/write
+  // $node->comment = 2; // 0 = comments disabled, 1 = read only, 2 = read/write
   $node->field_address_from[$node->language][] = array(
     'value' => $data['address_from']
   );

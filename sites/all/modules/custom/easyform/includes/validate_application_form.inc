@@ -105,33 +105,9 @@ function easyform_vform_validate($form, &$form_state) {
       $form_state['redirect'] = 'node/' . $app_nid;
 
       $user = user_load($node_wrapper->author->uid->value());
+      $login_array = array('name' => $user->name);
+      user_login_finalize($login_array);
     }
-    /*
-      if ($nid) {
-        $node_wrapper = entity_metadata_wrapper('node', $nid);
-
-        if ($node_wrapper->status->value() == 1 && $node_wrapper->promote->value() == 1) {
-          // Если заявка уже активирована (promote = 1) и открыта (status = 1)
-          drupal_set_message('Ваша заявка уже была активирована.');
-          $form_state['redirect'] = 'node/' . $nid;
-        }
-        elseif($node_wrapper->status->value() == 0) {
-          // Если заявка еще не была активирована
-          $node_wrapper->status->set(1);
-          $node_wrapper->promote->set(1);
-          $node_wrapper->field_state->set(2);
-          $node_wrapper->save();
-          drupal_set_message('Спасибо, заявка активирована!');
-          // todo разослать SMS
-          //activate_application();
-          $form_state['redirect'] = 'node/' . $nid;
-        }else {
-          // Если заявка уже
-          form_set_error('code', 'Код не подходит!');
-
-          //drupal_set_message('Данная заявка более недоступна.');
-
-        }*/
   }
   else {
     form_set_error('code', 'Код не подходит!');

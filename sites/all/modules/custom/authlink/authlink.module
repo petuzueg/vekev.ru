@@ -1,0 +1,92 @@
+<?php
+
+module_load_include('inc', 'authlink', 'includes/common');
+
+/**
+ * Implements hook_menu().
+ */
+function authlink_menu() {
+  $items['a/%'] = array(
+    'title' => 'Вход в личный кабинет',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('authlink_form'),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_page_build().
+ */
+/*function easyform_page_build(&$page) {
+  if (arg(0) == 'new') {
+    $crumbs = array();
+    $crumbs[] = l(t('Home'), '<front>');
+    $crumbs[] = 'Создать заявку на эвакуацию автомобиля';
+    drupal_set_breadcrumb($crumbs);
+  }
+}*/
+
+/**
+ * Implements hook_form().
+ */
+function authlink_form($form, &$form_state) {
+  global $user;
+  if ($user->uid == 0) {
+    // Anonymous user.
+    $code = _authlink_get_code();
+    if ($code['uid'] > 0) {
+      $form = array(
+        'descr' => array(
+          '#markup' => '<strong>Нажмите на кнопку, чтобы войти в личный кабинет.</strong><br/>Данная ссылка одноразовая и может быть использована только единожды.<br/>',
+        ),
+        'submit' => array(
+          '#type' => 'submit',
+          '#value' => 'Войти',
+        ),
+        'auth' => array(
+          '#type' => 'hidden',
+          '#value' => $code['uid'],
+        ),
+        'code' => array(
+          '#type' => 'hidden',
+          '#value' => $code['code'],
+        ),
+        'path' => array(
+          '#type' => 'hidden',
+          '#value' => $code['path'],
+        ),
+      );
+      return $form;
+    }
+  }
+  // Registered user or code not found.
+  drupal_not_found();
+  exit();
+}
+
+/**
+ * Form submit callback.
+ *
+ * @param $form
+ * @param $form_state
+ */
+function authlink_form_submit($form, &$form_state) {
+  global $user;
+  // Authorize user.
+  $user = user_load($form_state['values']['auth']);
+  $login_array = array('name' => $user->name);
+  user_login_finalize($login_array);
+
+  $result = db_update('authlink')
+    ->fields(array(
+      'activated' => date('Y-m-d G:i:s'),
+    ))
+    ->condition('code', $form_state['values']['code'], '=')
+    ->execute();
+
+  // Redirect user.
+  drupal_goto($form_state['values']['path']);
+}
