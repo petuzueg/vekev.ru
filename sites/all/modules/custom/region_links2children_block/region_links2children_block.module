@@ -1,0 +1,58 @@
+<?php
+
+  function region_links2children_block_get_content() {
+    $parent_tid = 0;
+    if (arg(0) == 'taxonomy') {
+      $parent_tid = arg(2);
+    }else return false; // не показывать блоки на страницах не таксонимии
+
+    $vid = 5; // Regions vocabulary id
+    $terms = taxonomy_get_tree($vid, $parent_tid);
+    // Build the menu.
+    $term_count = count($terms);
+    $links = array();
+    for ($i = 0; $i < $term_count; $i++) {
+      $links[$terms[$i]->tid] = array(
+        'title' => $terms[$i]->name,
+        'href' => 'taxonomy/term/' . $terms[$i]->tid,
+        'html' => FALSE,
+        'attributes' => array('title' => $terms[$i]->name, 'rel' => 'nofollow'),
+      );
+    }
+    $cont = theme('links', array(
+                                'links' => $links,
+                                'attributes' => array('class' => 'regions-list'),
+                           ));
+    if($cont){
+      $cont = '<h3 class="title">Смотрите также »</h3>' . $cont . '<div class="clear"></div>';
+    }
+    return $cont;
+  }
+
+  /**
+   * Implements hook_block_info().
+   */
+  function region_links2children_block_block_info() {
+    $blocks['region_links2children_block'] = array(
+      'info' => t('Links to children regions'),
+      'cache' => DRUPAL_CACHE_GLOBAL,
+      'status' => TRUE,
+      'region' => 'content',
+    );
+    return $blocks;
+  }
+
+  /**
+   * Implements hook_block_view().
+   */
+  function region_links2children_block_block_view($delta = '') {
+    $block = array();
+
+    switch ($delta) {
+      case 'region_links2children_block':
+        $block['subject'] = '';
+        $block['content'] = region_links2children_block_get_content();
+        break;
+    }
+    return $block;
+  }

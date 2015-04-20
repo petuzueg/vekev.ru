@@ -1,0 +1,7 @@
+<?php
+
+  function region_additional_page_title_taxonomy_term_view_alter(&$content) {
+    if($content['#term']->vid == 5 && @$content['#term']->field_header['und'][0]['safe_value']){
+      drupal_set_title(check_plain($content['#term']->field_header['und'][0]['safe_value']));
+    }
+  }

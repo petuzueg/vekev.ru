@@ -33,7 +33,8 @@ function _easyform_get_entity_by_code($code, $entity_type = 'user') {
   $entities = $node_query->entityCondition('entity_type', $entity_type)
     ->fieldCondition('field_validation_code', 'value', $code, '=')
     ->propertyCondition('status', 0)
-    ->pager(10)
+  //  ->pager(10)
+    ->addTag('efq_debug')
     ->execute();
   if (isset($entities[$entity_type])) {
     $ids = array_keys($entities[$entity_type]);
@@ -95,7 +96,7 @@ function _easyform_create_application($form, &$form_state) {
         'field_validation_code' => $validation_code_field,
         'roles' => array(
           DRUPAL_AUTHENTICATED_RID => 'authenticated user',
-          5 => 'клиент'
+          8 => 'Клиенты'
         ),
       );
 
@@ -113,7 +114,8 @@ function _easyform_create_application($form, &$form_state) {
   $node = new stdClass();
   // Марка машины, дата
   $node->title = $data['date'] . " - " . $data['car'];
-  $node->type = "application";
+  $node->type = "order";
+//  $node->type = "application";
   node_object_prepare($node); // Sets some defaults. Invokes hook_prepare() and hook_node_prepare().
   $node->language = LANGUAGE_NONE; // Or e.g. 'en' if locale is enabled
   $node->uid = $account->uid;
@@ -248,4 +250,11 @@ function _prepare_mobile_number($phone) {
   }
   // TODO проверить номер, убрать код страны. Оставить десятизначный номер
   return $phone;
+}
+
+
+function easyform_query_alter($query) {
+  if ($query->hasTag('efq_debug')) {
+    dpm((string)$query);
+  }
 }

@@ -11,8 +11,8 @@ module_load_include('inc', 'easyform', 'includes/validate_application_form');
  * Implements hook_menu().
  */
 function easyform_menu() {
-  $items['new'] = array(
-    'title' => 'Создать заявку',
+  $items['auction'] = array(
+    'title' => 'Аукцион эвакуаторов - Заявка на эвакуацию',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('easyform_form'),
     'access arguments' => array('access content'),
@@ -41,7 +41,7 @@ function easyform_page_build(&$page) {
   if (arg(0) == 'new') {
     $crumbs = array();
     $crumbs[] = l(t('Home'), '<front>');
-    $crumbs[] = 'Создать заявку на эвакуацию автомобиля';
+    $crumbs[] = 'Заявка на эвакуацию';
     drupal_set_breadcrumb($crumbs);
   }
 }

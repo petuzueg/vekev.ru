@@ -1,0 +1,282 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ *
+ *
+ */
+function client_podbor_block_info() {
+  // This example comes from node.module.
+  $blocks['client_podbor'] = array(
+    'info' => t('Tow track search'),
+    'cache' => DRUPAL_NO_CACHE
+  );
+
+  $blocks['region_podbor'] = array(
+    'info' => t('Region page results'),
+    'cache' => DRUPAL_NO_CACHE
+  );
+
+  return $blocks;
+
+}
+
+/**
+ * Implements hook_block_view().
+ *
+ *
+ */
+function client_podbor_block_view($delta = '') {
+
+  $block = array();
+  if ('client_podbor' == $delta) {
+    $block['content'] = _client_podbor_page_callback();
+  }
+
+  if ('region_podbor' == $delta) {
+    $block['content'] = _client_podbor_region_page_callback();
+  }
+
+  return $block;
+
+}
+
+function _client_podbor_region_page_callback() {
+  $result = '<div id="client-podbor-results">';
+  $tid = arg(2);
+
+  if(arg(1) == 'term' && $tid){
+    $term = taxonomy_term_load($tid);
+    //dsm($term);
+    $r = json_decode($term->field_map['und'][0]['value']);
+    $lat = $r->lat;
+    $lon = $r->lng;
+    return _get_items_from_external_db($lat, $lon);
+  }
+  $result .= '</div>';
+  return $result;
+}
+
+function client_podbor_views_api() {
+  return array(
+    'api' => 3.0,
+    'path' => drupal_get_path('module', 'client_podbor') . '/includes'
+  );
+}
+
+/**
+ * Implements hook_init().
+ *
+ *
+ */
+function client_podbor_init() {
+  drupal_add_js('http://maps.google.com/maps/api/js?sensor=false', 'external');
+}
+
+
+/**
+ * Implements hook_menu().
+ *
+ *
+ */
+/*function client_podbor_menu() { // оставить страницу для расширенного поиска?
+  $items['cp'] = array(
+    'title' => 'Быстрый подбор эвакуатора',
+    'page callback' => '_client_podbor_page_callback',
+    'access arguments' => array('access content'),
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+
+  return $items;
+
+}*/
+
+function _client_podbor_page_callback() {
+  return drupal_get_form('client_podbor_simple_form');
+}
+
+function _client_podbor_button_callback($form, $form_state) {
+  $messages = theme('status_messages');
+
+  $commands = array();
+  // $filter_values = array_filter($form_state['input']['type'], 'strlen');
+  $value = $form_state['input']['type'];
+  if (!$value) {
+    $value = 'all';
+  }
+ // $nids = $form_state['input']['nids'];
+  $location = $form_state['input']['location'];
+/*  $h_nids = array(); // nid'ы, которые нужно подсветить.
+  $distances = array();*/
+  $show_result = '';
+
+  /*if ($location) {
+    // запросить список nid у api.vekev.ru
+    $l = explode(',', $location);
+    $r = new stdClass();
+    $r->b3 = $l[0];
+    $r->b4 = $l[1];
+    $data = array(
+      "a1" => "a4f8efc201bd",
+      "a3" => 4,
+      "a4" => $r,
+    );
+    $result = update_remote_data($data);
+    if ($result->k1) {
+      $list = $result->k3->l3;
+      foreach ($list as $nid => $data) {
+        if ($data[0] == 1 || $data[0] == 2) { // Статус эвакуатора "свободен" или "зянят"
+          $h_nids[] = $nid;
+          $distances[] = $data[1];
+        }
+        elseif ($data[0] == 0) { // Все остальные эвакуаторы
+          $nids[] = $nid;
+        }
+      }
+      $nids = join(',', $nids);
+      $distances = join(',', $distances);
+      $h_nids = join(',', $h_nids);
+    }
+    else {
+      //TODO обработать ошибку
+    }
+  }*/
+  if ($location) {
+    $l = explode(',', $location);
+    $show_result = _get_items_from_external_db($l[0], $l[1], $value);
+  }else {
+    $show_result = "<div id='client-podbor-results'>" . $show_result . "</div>";
+  }
+ /* if ($h_nids) {
+    $show_result = "<h1 class=\"with-tabs\">Дежурные эвакуаторы поблизости</h1>";
+    $show_result .= "<p></p>";
+    $show_result .= views_embed_view('client_podbor', 'client_podbor_live', $h_nids, $value, $distances);
+    $show_result .= "<div class='clear'></div>";
+  }
+  $show_result .= "<h1 class=\"with-tabs\">Адреса ночных стоянок эвакуаторов</h1>" . views_embed_view('client_podbor', 'client_podbor_results', $nids, $value) . "<div class='clear'></div>";*/
+
+  $commands[] = ajax_command_replace('#client-podbor-form .inline-messages', "<div class='inline-messages'>" . $messages . "</div>");
+  $commands[] = ajax_command_replace('#client-podbor-results', $show_result);
+  //$commands[] = ajax_command_replace('#client-podbor-results', "<div id='client-podbor-results'>" . $show_result . "</div>");
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+function client_podbor_simple_form($form, &$form_state) {
+  $form['podbor']['#prefix'] = "<div id='client-podbor-form'>";
+  $form['podbor']['#suffix'] = "</div>";
+
+  $form["podbor"]["validation"] = array(
+    "#markup" => "<div class='inline-messages'></div>",
+  );
+
+  $form['podbor']['location_message'] = array(
+    '#markup' => '<div id="loc_message" class="messages error hidden">Разрешите доступ к сведениям о текущем местоположении: нажмите
+    кнопку согласия в появившемся предупреждении:<br/><img src="/' . drupal_get_path('module', 'client_podbor') . '/img/location_warning.jpg">
+    <br/>Тогда мы сможем показать ближайшие к вам эвакуаторы. Или введите адрес подачи эвакуатора в поле ниже.</div>'
+  );
+
+  $form['podbor']['address'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Ваше местоположение',
+    '#attributes' => array('placeholder' => 'Пример: Москва, Тверская 3'),
+  );
+
+  $options = array(
+    '500,1000,1500,2000,2500,3500,4000,5000,6000,7000,8000' => 'Малолитражный',
+    '2000,2500,3500,4000,5000,6000,7000,8000' => 'Легковой (свыше 1,5 тонн)',
+    '2500,3500,4000,5000,6000,7000,8000,9000,10000' => 'Внедорожник/Микроавтобус (свыше 2,5 тонны)',
+    '7000,8000,9000,10000,15000,40000' => 'Грузовой (свыше 7 тонн)',
+  );
+
+  $form['podbor']['type'] = array(
+    '#type' => 'select',
+    //'#type' => 'checkboxes',
+    '#title' => 'Тип эвакуируемого автомобиля',
+    '#options' => $options,
+    '#default_value' => 2,
+    // '#multiple' => true,
+  );
+
+  $form['podbor']['location'] = array(
+    '#type' => 'hidden',
+    '#value' => '',
+    '#attributes' => array('id' => 'location'),
+  );
+
+  $form['podbor']['nids'] = array(
+    '#type' => 'hidden',
+    '#value' => '',
+    '#attributes' => array('id' => 'nids'),
+  );
+
+  $form['podbor']['submit'] = array(
+    '#prefix' => '<div id="div-edit-submit"><span id="e-count"></span> ',
+    '#suffix' => '</div>',
+    '#type' => 'button',
+    '#value' => 'Показать',
+    // добавлена цель для формы
+    //'#attributes' => array('onclick' => "yaCounter12247393.reachGoal('podbor_form'); return true;"),
+    '#ajax' => array(
+      'callback' => '_client_podbor_button_callback',
+      'wrapper' => 'client-podbor-form',
+    ),
+  );
+  $form['podbor']['submit']['#validate'][] = 'client_podbor_simple_form_validate';
+  /*$form['podbor']['results'] = array(
+    '#markup' => "<div id='client-podbor-results'></div>"
+  );*/
+
+  return $form;
+}
+
+function client_podbor_simple_form_validate(&$form, &$form_state) {
+  if (!$form_state['input']['location'] && !$form_state['input']['address']) {
+    form_set_error('', t('Field Address is empty!'));
+  }
+}
+
+function _get_items_from_external_db($lat, $lon, $value = 'all'){
+  $h_nids = array(); // nid'ы, которые нужно подсветить.
+  $distances = array();
+  $show_result = '';
+
+  $r = new stdClass();
+  $r->b3 = $lat;
+  $r->b4 = $lon;
+
+  $data = array(
+    "a1" => "a4f8efc201bd",
+    "a3" => 4,
+    "a4" => $r,
+  );
+  $result = update_remote_data($data);
+  //dsm($result);
+  if ($result->k1) {
+    $list = $result->k3->l3;
+    foreach ($list as $nid => $data) {
+      if ($data[0] == 1 || $data[0] == 2) { // Статус эвакуатора "свободен" или "зянят"
+        $h_nids[] = $nid;
+        $distances[] = $data[1];
+      }
+      elseif ($data[0] == 0) { // Все остальные эвакуаторы
+        $nids[] = $nid;
+      }
+    }
+    $nids = join(',', $nids);
+    $distances = join(',', $distances);
+    $h_nids = join(',', $h_nids);
+//dsm($h_nids);
+
+    if ($h_nids) {
+      $show_result = "<h1 class=\"with-tabs\">Дежурные эвакуаторы поблизости</h1>";
+      $show_result .= "<p></p>";
+      $show_result .= views_embed_view('client_podbor', 'client_podbor_live', $h_nids, $value, $distances);
+      $show_result .= "<div class='clear'></div>";
+    }
+    $show_result .= "<h1 class=\"with-tabs\">Адреса ночных стоянок эвакуаторов</h1>" . views_embed_view('client_podbor', 'client_podbor_results', $nids, $value) . "<div class='clear'></div>";
+  }
+  else {
+    //TODO обработать ошибку
+  }
+  return "<div id='client-podbor-results'>" . $show_result . "</div>";
+}

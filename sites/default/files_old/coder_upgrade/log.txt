@@ -1,0 +1,47 @@
+
+*************************
+Pre-processing the directory => /home/petu/www/vekev.ru/sites/default/files/coder_upgrade/old/anket
+*************************
+Calling hook_upgrade_begin_alter
+Completed hook_upgrade_begin_alter
+
+*************************
+Converting the directory => /home/petu/www/vekev.ru/sites/default/files/coder_upgrade/old/anket
+*************************
+
+*************************
+Converting the file => anket.info
+*************************
+Calling hook_upgrade_regex_info_alter
+Completed hook_upgrade_regex_info_alter
+
+*************************
+Converting the file => anket.module
+*************************
+Calling hook_upgrade_regex_alter
+Completed hook_upgrade_regex_alter
+Calling hook_upgrade_call_alter
+Completed hook_upgrade_call_alter
+Calling hook_upgrade_hook_alter
+Ignoring function 'create_company_node' as its name does not begin with the module name or 'theme_'
+Ignoring function 'create_evacuator_node' as its name does not begin with the module name or 'theme_'
+Ignoring function 'template_preprocess_attach_template' as its name does not begin with the module name or 'theme_'
+Completed hook_upgrade_hook_alter
+Calling hook_upgrade_file_alter
+Completed hook_upgrade_file_alter
+Replaced the file
+
+*************************
+Converting the directory => /home/petu/www/vekev.ru/sites/default/files/coder_upgrade/old/anket/js
+*************************
+
+*************************
+Post-processing the directory => /home/petu/www/vekev.ru/sites/default/files/coder_upgrade/new/anket
+*************************
+Calling hook_upgrade_end_alter
+Completed hook_upgrade_end_alter
+
+*************************
+Creating a patch file for the directory => /home/petu/www/vekev.ru/sites/default/files/coder_upgrade/old/anket
+*************************
+Making patch file: diff -up -r /home/petu/www/vekev.ru/sites/default/files/coder_upgrade/old/anket /home/petu/www/vekev.ru/sites/default/files/coder_upgrade/new/anket > sites/default/files/coder_upgrade/patch/anket.patch

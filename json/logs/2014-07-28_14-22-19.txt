@@ -1,0 +1,419 @@
+USER_EMAIL = N/A
+USER_COMMENT = 
+SETTINGS_GLOBAL = ADB_ENABLED=0
+AIRPLANE_MODE_ON=0
+AIRPLANE_MODE_RADIOS=cell,bluetooth,wifi,nfc,wimax
+AIRPLANE_MODE_TOGGLEABLE_RADIOS=bluetooth,wifi,nfc
+ASSISTED_GPS_ENABLED=1
+AUDIO_SAFE_VOLUME_STATE=1
+AUTO_TIME=1
+AUTO_TIME_ZONE=0
+BLUETOOTH_ON=0
+CALL_AUTO_RETRY=0
+CAR_DOCK_SOUND=/system/media/audio/ui/Dock.ogg
+CAR_UNDOCK_SOUND=/system/media/audio/ui/Undock.ogg
+CDMA_CELL_BROADCAST_SMS=1
+CERT_PIN_UPDATE_CONTENT_URL=http://www.gstatic.com/android/config_update/10142013-pins.txt
+CERT_PIN_UPDATE_METADATA_URL=http://www.gstatic.com/android/config_update/10142013-metadata.txt
+DATA_ROAMING=0
+DESK_DOCK_SOUND=/system/media/audio/ui/Dock.ogg
+DESK_UNDOCK_SOUND=/system/media/audio/ui/Undock.ogg
+DEVICE_PROVISIONED=1
+DOCK_AUDIO_MEDIA_ENABLED=1
+DOCK_SOUNDS_ENABLED=0
+EMERGENCY_TONE=0
+ENABLE_ACCESSIBILITY_GLOBAL_GESTURE_ENABLED=0
+INSTALL_NON_MARKET_APPS=0
+LOCK_SOUND=/system/media/audio/ui/Lock.ogg
+LOW_BATTERY_SOUND=/system/media/audio/ui/LowBattery.ogg
+LOW_BATTERY_SOUND_TIMEOUT=0
+MOBILE_DATA=1
+MODE_RINGER=2
+NETSTATS_ENABLED=1
+NETWORK_PREFERENCE=1
+PACKAGE_VERIFIER_ENABLE=1
+POWER_SOUNDS_ENABLED=1
+PREFERRED_NETWORK_MODE=1
+SEND_ACTION_APP_ERROR=1
+SMS_SHORT_CODES_UPDATE_CONTENT_URL=http://www.gstatic.com/android/config_update/07172013-sms-blacklist.txt
+SMS_SHORT_CODES_UPDATE_METADATA_URL=http://www.gstatic.com/android/config_update/07172013-sms-metadata.txt
+STAY_ON_WHILE_PLUGGED_IN=0
+TRANSITION_ANIMATION_SCALE=1.0
+TZINFO_UPDATE_CONTENT_URL=http://www.gstatic.com/android/config_update/10142013-tzinfo-content.txt
+TZINFO_UPDATE_METADATA_URL=http://www.gstatic.com/android/config_update/10142013-tzinfo-metadata.txt
+UNLOCK_SOUND=/system/media/audio/ui/Unlock.ogg
+USB_MASS_STORAGE_ENABLED=1
+WEB_AUTOFILL_QUERY_URL=http://android.clients.google.com/proxy/webautofill
+WIFI_COUNTRY_CODE=ru
+WIFI_MAX_DHCP_RETRY_COUNT=9
+WIFI_NETWORKS_AVAILABLE_NOTIFICATION_ON=1
+WIFI_ON=1
+WIFI_SAVED_STATE=0
+WIFI_SCAN_ALWAYS_AVAILABLE=1
+WIFI_SUSPEND_OPTIMIZATIONS_ENABLED=1
+WIFI_WATCHDOG_ON=1
+WIFI_WATCHDOG_POOR_NETWORK_TEST_ENABLED=0
+WINDOW_ANIMATION_SCALE=1.0
+WIRELESS_CHARGING_STARTED_SOUND=/system/media/audio/ui/WirelessChargingStarted.ogg
+
+DEVICE_FEATURES = android.hardware.wifi
+android.hardware.location.network
+android.hardware.nfc
+android.hardware.bluetooth_le
+android.hardware.location
+android.software.input_methods
+android.hardware.sensor.gyroscope
+android.hardware.screen.landscape
+android.hardware.screen.portrait
+android.hardware.wifi.direct
+android.hardware.usb.accessory
+android.hardware.camera.any
+android.hardware.bluetooth
+android.hardware.touchscreen.multitouch.distinct
+android.hardware.microphone
+android.hardware.sensor.light
+android.hardware.camera.autofocus
+android.software.live_wallpaper
+android.hardware.camera.flash
+android.software.app_widgets
+android.hardware.telephony
+android.software.sip
+android.hardware.touchscreen.multitouch.jazzhand
+android.hardware.usb.host
+android.hardware.touchscreen.multitouch
+android.hardware.sensor.compass
+android.hardware.faketouch
+android.hardware.camera
+android.software.home_screen
+android.software.sip.voip
+android.hardware.sensor.proximity
+android.hardware.location.gps
+android.hardware.telephony.gsm
+android.software.device_admin
+android.hardware.camera.front
+com.nxp.mifare
+android.hardware.touchscreen
+android.hardware.sensor.accelerometer
+glEsVersion = 3.0
+
+PHONE_MODEL = C5503
+SETTINGS_SECURE = ACCESSIBILITY_DISPLAY_MAGNIFICATION_AUTO_UPDATE=1
+ACCESSIBILITY_DISPLAY_MAGNIFICATION_ENABLED=0
+ACCESSIBILITY_DISPLAY_MAGNIFICATION_SCALE=2.0
+ACCESSIBILITY_SCREEN_READER_URL=https://ssl.gstatic.com/accessibility/javascript/android/AndroidVox_v1.js
+ACCESSIBILITY_SCRIPT_INJECTION=0
+ACCESSIBILITY_SPEAK_PASSWORD=0
+ACCESSIBILITY_WEB_CONTENT_KEY_BINDINGS=0x13=0x01000100; 0x14=0x01010100; 0x15=0x02000001; 0x16=0x02010001; 0x200000013=0x02000601; 0x200000014=0x02010601; 0x200000015=0x03020101; 0x200000016=0x03010201; 0x200000023=0x02000301; 0x200000024=0x02010301; 0x200000037=0x03070201; 0x200000038=0x03000701:0x03010701:0x03020701;
+ALLOWED_GEOLOCATION_ORIGINS=http://www.google.co.uk http://www.google.com
+ALLOW_MOCK_LOCATION=0
+ANDROID_ID=676881fc1f196722
+BACKUP_ENABLED=1
+BACKUP_TRANSPORT=com.google.android.backup/.BackupTransportService
+DEFAULT_INPUT_METHOD=com.sonyericsson.textinput.uxp/.glue.InputMethodServiceGlue
+ENABLED_INPUT_METHODS=com.sonyericsson.textinput.uxp/.glue.InputMethodServiceGlue:com.google.android.googlequicksearchbox/com.google.android.voicesearch.ime.VoiceInputMethodService
+ENABLED_ON_FIRST_BOOT_SYSTEM_PRINT_SERVICES=com.google.android.apps.cloudprint/com.google.android.apps.cloudprint.printdialog.services.CloudPrintService
+ENABLED_PRINT_SERVICES=com.google.android.apps.cloudprint/com.google.android.apps.cloudprint.printdialog.services.CloudPrintService
+IMMERSIVE_MODE_CONFIRMATIONS=com.google.android.googlequicksearchbox,com.sonyericsson.album
+INCALL_POWER_BUTTON_BEHAVIOR=1
+INPUT_METHODS_SUBTYPE_HISTORY=com.sonyericsson.textinput.uxp/.glue.InputMethodServiceGlue;-894523390
+LAST_SETUP_SHOWN=eclair_1
+LOCK_PATTERN_ENABLED=0
+LOCK_PATTERN_VISIBLE=0
+LOCK_SCREEN_APPWIDGET_IDS=15,14
+LOCK_SCREEN_OWNER_INFO=
+LOCK_SCREEN_OWNER_INFO_ENABLED=0
+LONG_PRESS_TIMEOUT=500
+MOUNT_PLAY_NOTIFICATION_SND=1
+MOUNT_UMS_AUTOSTART=0
+MOUNT_UMS_NOTIFY_ENABLED=1
+MOUNT_UMS_PROMPT=1
+PACKAGE_VERIFIER_USER_CONSENT=1
+SCREENSAVER_ACTIVATE_ON_DOCK=1
+SCREENSAVER_ACTIVATE_ON_SLEEP=0
+SCREENSAVER_COMPONENTS=com.sonymobile.photoanalyzer/com.sonymobile.musicslideshow.daydream.DayDreamSlideShowActivity
+SCREENSAVER_DEFAULT_COMPONENT=com.sonymobile.photoanalyzer/com.sonymobile.musicslideshow.daydream.DayDreamSlideShowActivity
+SCREENSAVER_ENABLED=0
+SELECTED_INPUT_METHOD_SUBTYPE=-1
+SMS_DEFAULT_APPLICATION=com.sonyericsson.conversations
+SPELL_CHECKER_ENABLED=1
+TOUCH_EXPLORATION_ENABLED=0
+TTS_DEFAULT_LOCALE=com.google.android.tts:rus-rus,com.svox.pico:deu-DEU
+TTS_DEFAULT_RATE=100
+TTS_DEFAULT_SYNTH=com.google.android.tts
+USER_SETUP_COMPLETE=1
+VOICE_RECOGNITION_SERVICE=com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService
+
+INSTALLATION_ID = 02bf8d01-e28b-492c-8069-29bf59c1b8c4
+SETTINGS_SYSTEM = ACCELEROMETER_ROTATION=1
+ALARM_ALERT=content://media/internal/audio/media/5
+DTMF_TONE_TYPE_WHEN_DIALING=0
+DTMF_TONE_WHEN_DIALING=1
+HAPTIC_FEEDBACK_ENABLED=0
+HEARING_AID=0
+HIDE_ROTATION_LOCK_TOGGLE_FOR_ACCESSIBILITY=0
+LOCKSCREEN_SOUNDS_ENABLED=1
+MEDIA_BUTTON_RECEIVER=ru.ok.android/ru.ok.android.services.app.remote.MusicIntentReceiver
+MODE_RINGER_STREAMS_AFFECTED=422
+MUTE_STREAMS_AFFECTED=46
+NEXT_ALARM_FORMATTED=
+NOTIFICATION_LIGHT_PULSE=1
+NOTIFICATION_SOUND=content://media/internal/audio/media/134
+POINTER_SPEED=0
+RINGTONE=content://media/internal/audio/media/9
+SCREEN_BRIGHTNESS=255
+SCREEN_BRIGHTNESS_MODE=0
+SCREEN_OFF_TIMEOUT=1800000
+SOUND_EFFECTS_ENABLED=0
+TIME_12_24=24
+TTY_MODE=0
+USER_ROTATION=0
+VIBRATE_WHEN_RINGING=1
+VOLUME_ALARM=6
+VOLUME_BLUETOOTH_SCO=7
+VOLUME_MUSIC=11
+VOLUME_NOTIFICATION=5
+VOLUME_RING=5
+VOLUME_SYSTEM=7
+VOLUME_VOICE=4
+WIFI_AUTO_IP_SUPPORT=0
+
+SHARED_PREFERENCES = default.acra.lastVersionNr=1
+
+
+IS_SILENT = 
+ANDROID_VERSION = 4.4.2
+PACKAGE_NAME = ru.vekev.evacuator
+APP_VERSION_CODE = 1
+CRASH_CONFIGURATION = compatScreenHeightDp=504
+compatScreenWidthDp=320
+compatSmallestScreenWidthDp=320
+densityDpi=320
+fontScale=1.0
+hardKeyboardHidden=HARDKEYBOARDHIDDEN_YES
+keyboard=KEYBOARD_NOKEYS
+keyboardHidden=KEYBOARDHIDDEN_NO
+locale=ru_RU
+mcc=250
+mnc=2
+navigation=NAVIGATION_NONAV
+navigationHidden=NAVIGATIONHIDDEN_YES
+orientation=ORIENTATION_PORTRAIT
+screenHeightDp=567
+screenLayout=SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_NO+SCREENLAYOUT_LAYOUTDIR_LTR
+screenWidthDp=360
+seq=36
+skinPackageSeq=1
+smallestScreenWidthDp=360
+touchscreen=TOUCHSCREEN_FINGER
+uiMode=UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO
+userSetLocale=true
+
+USER_CRASH_DATE = 2014-07-28T13:37:28.000+04:00
+DUMPSYS_MEMINFO = Permission Denial: can't dump meminfo from from pid=25210, uid=10144 without permission android.permission.DUMP
+
+BUILD = BOARD=MSM8960
+BOOTLOADER=s1
+BRAND=Sony
+CPU_ABI=armeabi-v7a
+CPU_ABI2=armeabi
+DEVICE=C5503
+DISPLAY=10.5.A.0.230
+FINGERPRINT=Sony/C5503/C5503:4.4.2/10.5.A.0.230/Gf9_rQ:user/release-keys
+HARDWARE=qcom
+HOST=BuildHost
+ID=10.5.A.0.230
+IS_DEBUGGABLE=false
+MANUFACTURER=Sony
+MODEL=C5503
+PRODUCT=C5503
+RADIO=unknown
+SERIAL=EP732062L9
+TAGS=release-keys
+TIME=1397033562000
+TYPE=user
+UNKNOWN=unknown
+USER=BuildUser
+VERSION.CODENAME=REL
+VERSION.INCREMENTAL=Gf9_rQ
+VERSION.RELEASE=4.4.2
+VERSION.RESOURCES_SDK_INT=19
+VERSION.SDK=19
+VERSION.SDK_INT=19
+
+STACK_TRACE = java.lang.RuntimeException: Can't create handler inside thread that has not called Looper.prepare()
+	at android.os.Handler.<init>(Handler.java:200)
+	at android.os.Handler.<init>(Handler.java:114)
+	at android.location.LocationManager$ListenerTransport$1.<init>(LocationManager.java:221)
+	at android.location.LocationManager$ListenerTransport.<init>(LocationManager.java:221)
+	at android.location.LocationManager.wrapListener(LocationManager.java:844)
+	at android.location.LocationManager.requestLocationUpdates(LocationManager.java:857)
+	at android.location.LocationManager.requestLocationUpdates(LocationManager.java:454)
+	at ru.vekev.evacuator.GPSTracker.getGPSLocation(GPSTracker.java:97)
+	at ru.vekev.evacuator.GPSTracker.updateLocation(GPSTracker.java:65)
+	at ru.vekev.evacuator.ServerManager.timerTick(ServerManager.java:80)
+	at ru.vekev.evacuator.ServerManager.access$000(ServerManager.java:28)
+	at ru.vekev.evacuator.ServerManager$1.run(ServerManager.java:62)
+	at java.util.Timer$TimerImpl.run(Timer.java:284)
+
+PRODUCT = C5503
+DISPLAY = 0.currentSizeRange.smallest=[720,670]
+0.currentSizeRange.largest=[1196,1134]
+0.flags=FLAG_SUPPORTS_PROTECTED_BUFFERS+FLAG_SECURE
+0.height=1184
+0.name=Встроенный экран
+0.orientation=0
+0.pixelFormat=1
+0.getRealSize=[720,1280]
+0.rectSize=[0,0,720,1184]
+0.refreshRate=60.0
+0.rotation=ROTATION_0
+0.getSize=[720,1184]
+0.width=720
+0.isValid=true
+
+LOGCAT = --------- beginning of /dev/log/main
+[ 07-28 13:36:18.726 14679:14679 D/TEST     ]
+[Server] Receive: null
+
+[ 07-28 13:36:19.136 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:36:19.136 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:36:19.136 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:36:19.136 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:36:19.146 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:36:19.146 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:36:24.136 14679:15358 D/TEST     ]
+[Server] Timer tick
+
+[ 07-28 13:36:24.166 14679:15358 D/TEST     ]
+[GPS Tracker] Location by GPS
+
+[ 07-28 13:36:24.206 14679:15358 D/TEST     ]
+[GPS Tracker] Location by Network
+
+[ 07-28 13:36:24.206 14679:15358 D/TEST     ]
+[Server] Send: {"a1":"beb34214-b662-11e3-8b54-0023545941cb","a3":3,"a4":{"b3":55.8359902,"b4":37.97742}}
+
+[ 07-28 13:36:24.396 14679:14679 D/TEST     ]
+[Server] Receive: null
+
+[ 07-28 13:36:25.006 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:36:42.306 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:36:42.306 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:36:42.306 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:36:52.076 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:36:52.106 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:37:02.106 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:37:27.726 14679:15358 D/TEST     ]
+[Server] Timer tick
+
+[ 07-28 13:37:27.736 14679:15358 D/TEST     ]
+[GPS Tracker] Location by GPS
+
+[ 07-28 13:37:27.746 14679:15358 D/TEST     ]
+[GPS Tracker] Location by Network
+
+[ 07-28 13:37:27.766 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:37:27.766 14679:15358 D/TEST     ]
+[Server] Send: {"a1":"beb34214-b662-11e3-8b54-0023545941cb","a3":3,"a4":{"b3":55.8359893,"b4":37.9774066}}
+
+[ 07-28 13:37:27.776 14679:15358 D/TEST     ]
+[Server] Timer tick
+
+[ 07-28 13:37:27.826 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:37:27.826 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:37:27.876 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:37:27.896 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:37:27.896 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+[ 07-28 13:37:27.946 14679:14679 D/TEST     ]
+[Server] Receive: null
+
+[ 07-28 13:37:28.237 14679:14679 D/TEST     ]
+[Service] Timer tick
+
+
+APP_VERSION_NAME = 1.0
+AVAILABLE_MEM_SIZE = 950071296
+USER_APP_START_DATE = 2014-07-28T13:07:03.000+04:00
+CUSTOM_DATA = TOKEN = beb34214-b662-11e3-8b54-0023545941cb
+
+BRAND = Sony
+INITIAL_CONFIGURATION = compatScreenHeightDp=504
+compatScreenWidthDp=320
+compatSmallestScreenWidthDp=320
+densityDpi=320
+fontScale=1.0
+hardKeyboardHidden=HARDKEYBOARDHIDDEN_YES
+keyboard=KEYBOARD_NOKEYS
+keyboardHidden=KEYBOARDHIDDEN_NO
+locale=ru_RU
+mcc=250
+mnc=2
+navigation=NAVIGATION_NONAV
+navigationHidden=NAVIGATIONHIDDEN_YES
+orientation=ORIENTATION_PORTRAIT
+screenHeightDp=567
+screenLayout=SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_NO+SCREENLAYOUT_LAYOUTDIR_LTR
+screenWidthDp=360
+seq=36
+skinPackageSeq=1
+smallestScreenWidthDp=360
+touchscreen=TOUCHSCREEN_FINGER
+uiMode=UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO
+userSetLocale=true
+
+TOTAL_MEM_SIZE = 4923387904
+FILE_PATH = /data/data/ru.vekev.evacuator/files
+ENVIRONMENT = getDataDirectory=/data
+getDownloadCacheDirectory=/cache
+getEmulatedStorageObbSource=/mnt/shell/emulated/obb
+getExternalStorageDirectory=/storage/emulated/0
+getExternalStorageState=mounted
+getLegacyExternalStorageDirectory=/storage/emulated/legacy
+getLegacyExternalStorageObbDirectory=/storage/emulated/legacy/Android/obb
+getMediaStorageDirectory=/data/media/0
+getRootDirectory=/system
+getSecureDataDirectory=/data
+getSystemSecureDirectory=/data/system
+isEncryptedFilesystemEnabled=false
+isExternalStorageEmulated=true
+isExternalStorageRemovable=false
+
+REPORT_ID = c2f8b158-d4f9-40c5-addd-37cdecddaefb

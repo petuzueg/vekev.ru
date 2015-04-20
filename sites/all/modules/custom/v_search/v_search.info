@@ -1,0 +1,5 @@
+name = vekev search input
+description = "Строка поиска в шапке"
+package = vekev.ru
+version = 7.x
+core = 7.x

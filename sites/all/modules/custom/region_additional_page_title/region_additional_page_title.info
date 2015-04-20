@@ -1,0 +1,5 @@
+name = Region additional page title
+description = "Для термина таксономии словаря Города подменяет поле заголовок на значение из дополнительного поля."
+package = vekev.ru
+version = 7.x
+core = 7.x

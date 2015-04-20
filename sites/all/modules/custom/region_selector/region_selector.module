@@ -1,0 +1,84 @@
+<?php
+
+  function region_selector_get_content() {
+    $vid = 5;
+    $terms = taxonomy_get_tree($vid);
+    // Get the active trail tid-s.
+    $active = arg(2);
+    $active_parents = taxonomy_get_parents_all($active);
+    $active_parents_tids = array();
+    foreach ($active_parents as $parent) {
+      $active_parents_tids[] = $parent->tid;
+    }
+
+    // Build the menu.
+    $term_count = count($terms);
+    $cont = '<div class="region"><ul id="categorymenu" class="mcdropdown_menu">';
+    for ($i = 0; $i < $term_count; $i++) {
+      $li_tag = '<li title="/taxonomy/term/' . $terms[$i]->tid . '">' . $terms[$i]->name;
+      if ($i == 0) {
+        $cont .= $li_tag;
+      }
+      else {
+        if ($terms[$i]->depth == $depth) {
+          $cont .= '</li>' . $li_tag;
+        }
+        elseif ($terms[$i]->depth > $depth) {
+          $cont .= '<ul>' . $li_tag;
+        }
+        elseif ($terms[$i]->depth < $depth) {
+          // Add missing end-tags depending of depth level difference.
+          for ($j = $terms[$i]->depth; $j < $depth; $j++) {
+            $cont .= '</li></ul>';
+          }
+          $cont .= '</li>' . $li_tag;
+        }
+        // If we have reached the last element add all possibly missing end-tags.
+        if (!isset($terms[$i + 1])) {
+          for ($j = 0; $j < $terms[$i]->depth; $j++) {
+            $cont .= '</li></ul>';
+          }
+        }
+      }
+      $depth = $terms[$i]->depth;
+    }
+    $cont .= '</li></ul>';
+    $default_region = @$_SESSION['region'];
+    if (!$default_region) {
+      $default_region = 'taxonomy/term/280';
+    }
+    if (strstr($_GET['q'], 'taxonomy/term/')) {
+      $default_region = $_GET['q'];
+      $_SESSION['region'] = $_GET['q'];
+    }
+    $cont .= '<input class="control" type="text" name="city" id="city" value="/' . $default_region . '"/></div>';
+    return $cont;
+  }
+
+  /**
+   * Implements hook_block_info().
+   */
+  function region_selector_block_info() {
+    $blocks['region_selector'] = array(
+      'info' => t('Select your region'),
+      'cache' => DRUPAL_CACHE_GLOBAL,
+      'status' => TRUE,
+      'region' => 'info',
+    );
+    return $blocks;
+  }
+
+  /**
+   * Implements hook_block_view().
+   */
+  function region_selector_block_view($delta = '') {
+    $block = array();
+
+    switch ($delta) {
+      case 'region_selector':
+        $block['subject'] = '';
+        $block['content'] = region_selector_get_content();
+        break;
+    }
+    return $block;
+  }

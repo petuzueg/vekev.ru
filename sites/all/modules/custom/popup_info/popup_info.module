@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function popup_info_menu() {
+  $items['node/%/%ctools_js'] = array(
+    'title' => 'Подробнее',
+    'page callback' => '_popup_info_page_callback',
+    'page arguments' => array(1, 2),
+    'access callback' => true,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+
+}
+
+function _popup_info_page_callback($nid, $ajax) {
+  if ($ajax) {
+    $node = node_load($nid);
+    $node->build_mode = 'popup_profile';
+    $node_view = node_view($node);
+    $output = drupal_render($node_view);
+
+    $commands = array();
+
+    $modal = '
+    <div
+    class="modal fade"
+    id="myModal-' . $nid . '"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"
+    >
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Карточка эвакуатора ' . $node->title .'</h4>
+            </div>
+            <div class="modal-body">
+   ' . $output . '
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>';
+
+    $commands[] = ajax_command_html('#modal-' . $nid, $modal);
+    $commands[] = ajax_command_invoke('#myModal-' . $nid, 'modal');
+    $commands[] = ajax_command_replace('#info-' . $nid, '<a href="/node/' . $nid . '" class="btn btn-default" id="info-' . $nid . '" role="button" data-toggle="modal" data-target="#myModal-' . $nid . '">Подробнее</a>');
+
+    ajax_deliver(array(
+      '#type' => 'ajax',
+      '#commands' => $commands,
+    ));
+  }else{
+    drupal_goto('node/' . $nid);
+  }
+}

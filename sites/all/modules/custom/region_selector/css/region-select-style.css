@@ -1,0 +1,36 @@
+div.mcdropdown a {
+    position: absolute;
+    left: 397px;
+    bottom: 0px;
+    height: 17px;
+    font-size: 12px;
+    background: transparent url(../images/mcdropdown/mcdd_select_button_sprite.gif) no-repeat top left;
+    text-decoration: underline;
+    background-position-y: 0px;
+    padding-left: 25px;
+    margin-right: 0px;
+    width: 100px;
+    background-position-x: 0px;
+}
+
+div.mcdropdown a:hover, div.mcdropdown a:focus {
+    /* background-position-x: 100%;*/
+}
+
+div.mcdropdown a:active {
+    /*background-position-x: 100%;*/
+}
+
+div.mcdropdown input {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+ul.mcdropdown_menu {
+    background-color: #eee;
+    font-size: 14px;
+}
+
+ul.mcdropdown_menu li.mc_root {
+    color: #444;
+}

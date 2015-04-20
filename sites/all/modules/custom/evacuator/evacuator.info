@@ -1,0 +1,7 @@
+name = Evacuator - modifications for node type evacuator
+description = "Строит форму добавления нового эвакуатора и регистрации нового пользователя. Доопределяет форму типа ноды evacuator."
+package = vekev.ru
+version = 7.x
+core = 7.x
+
+dependencies[] = entity

@@ -1,0 +1,6 @@
+name = Popup info
+description = Создает ctools всплывающее окно с подробной информацией об эвакуаторе.
+core = 7.x
+package = vekev.ru
+
+dependencies[] = ctools

@@ -1,0 +1,494 @@
+<?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+function evacuator_field_info() {
+    return array(
+        'evacuator' => array(
+            'label' => 'Данные о Вашем эвакуаторе',
+            'description' => 'Аккуратно заполните поля',
+            'default_widget' => 'evacuator_evacuator_form',
+            'default_formatter' => 'evacuator_default',
+        ),
+    );
+}
+
+/**
+ * Implementation of hook_field_validate().
+ */
+function evacuator_field_validate($obj_type, $object, $field, $instance, $langcode, &$items, &$errors) {
+  if ($field['type'] == 'evacuator') {
+      //validate values here. If error, set to $errors
+  }
+}
+
+/**
+ * Implementation of hook_field_is_empty().
+ */
+function evacuator_field_is_empty($item, $field) {
+    if ($field['type'] == 'evacuator') {
+//        if (empty($item['price1']) && (string) $item['price1'] !== '0') return TRUE;
+//                if (empty($item['price2']) && (string) $item['price2'] !== '0') return TRUE;
+//                if (empty($item['price3']) && (string) $item['price3'] !== '0') return TRUE;
+//                if (empty($item['price4']) && (string) $item['price4'] !== '0') return TRUE;
+//                if (empty($item['price5']) && (string) $item['price5'] !== '0') return TRUE;
+//                if (empty($item['price6']) && (string) $item['price6'] !== '0') return TRUE;
+//                if (empty($item['price7']) && (string) $item['price7'] !== '0') return TRUE;
+//                if (empty($item['company']) && (string) $item['company'] !== '0') return TRUE;
+//                {            return TRUE;        }
+    }
+    return FALSE;
+
+    //return TRUE;
+}
+
+function evacuator_permission() {
+  return array(
+    'access evacuator' => array(
+      'title' => 'Доступ к форме добавления эвакуатора',
+      'description' => 'lklk',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function evacuator_field_widget_info() {
+  return array(
+    'evacuator_evacuator_form' => array(
+      'label' => 'Форма данных об эвакуаторе с полями',
+      'field types' => array('evacuator'),
+//      'behaviors' => array(
+//        'multiple values' => FIELD_BEHAVIOR_DEFAULT,
+//        //Use FIELD_BEHAVIOR_NONE for no default value.
+//        'default value' => FIELD_BEHAVIOR_DEFAULT,
+//      ),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_field_widget_form().
+ */
+function evacuator_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+    $settings = $field['settings'];
+    if ($instance['widget']['type'] == 'evacuator_evacuator_form') {
+
+        $element['company'] = array(
+            '#type' => 'textfield',
+            '#title' => 'Компания',
+            '#size' => 4,
+            '#description' => 'Введите nid компании (доступно только для админа)',
+            '#default_value' => isset($items[$delta]['company']) ? $items[$delta]['company'] : 0,
+        );
+
+        $element['volume'] = array(
+            '#type' => 'select',
+            //'#weight' => 3,
+            '#default_value' => isset($items[$delta]['volume']) ? $items[$delta]['volume'] : '2.5',
+            '#options' => array(
+                '0.5' => '0.5',
+                '1.0' => '1',
+                '1.5' => '1.5',
+                '2.0' => '2',
+                '2.5' => '2.5',
+                '3.0' => '3',
+                '3.5' => '3.5',
+                '4.0' => '4',
+                '4.5' => '4.5',
+                '5.0' => '5',
+                '6.0' => '6',
+                '10.0' => '10',
+                '15.0' => '15',
+                '40.0' => '40'),
+        );
+
+        $element['price1'] = array(
+            '#type' => 'textfield',
+            '#size' => 5,
+            '#maxlength' => 5,
+            '#default_value' => isset($items[$delta]['price1']) ? $items[$delta]['price1'] : NULL,
+        );
+
+        $element['price2'] = array(
+            '#type' => 'textfield',
+            '#size' => 5,
+            '#maxlength' => 5,
+            '#default_value' => isset($items[$delta]['price2']) ? $items[$delta]['price2'] : NULL,
+        );
+
+        $element['price3'] = array(
+            '#type' => 'textfield',
+            '#size' => 5,
+            '#maxlength' => 5,
+            '#default_value' => isset($items[$delta]['price3']) ? $items[$delta]['price3'] : NULL,
+        );
+
+        $element['price4'] = array(
+            '#type' => 'textfield',
+            '#size' => 5,
+            '#maxlength' => 5,
+            '#default_value' => isset($items[$delta]['price4']) ? $items[$delta]['price4'] : NULL,
+        );
+
+        $element['price5'] = array(
+            '#type' => 'textfield',
+            '#size' => 4,
+            '#maxlength' => 4,
+            '#default_value' => isset($items[$delta]['price5']) ? $items[$delta]['price5'] : NULL,
+        );
+
+        $element['price6'] = array(
+            '#type' => 'textfield',
+            '#size' => 4,
+            '#maxlength' => 4,
+            '#default_value' => isset($items[$delta]['price6']) ? $items[$delta]['price6'] : NULL,
+        );
+
+        $element['price7'] = array(
+            '#type' => 'textfield',
+            '#size' => 4,
+            '#maxlength' => 4,
+            '#default_value' => isset($items[$delta]['price7']) ? $items[$delta]['price7'] : NULL,
+        );
+
+        $element['discount'] = array(
+            '#type' => 'select',
+            '#options' => array(
+                '0' => '0',
+                '3' => '3',
+                '4' => '4',
+                '5' => '5',
+                '6' => '6',
+                '7' => '7',
+                '10' => '10',
+                '11' => '11',
+                '12' => '12',
+                '15' => '15',
+                '20' => '20',
+                '25' => '25'
+            ),
+            '#default_value' => isset($items[$delta]['discount']) ? $items[$delta]['discount'] : 3,
+        );
+
+        $element['gps_eq'] = array(
+            '#type' => 'textfield',
+            '#size' => 40,
+            '#default_value' => isset($items[$delta]['gps_eq']) ? $items[$delta]['gps_eq'] : NULL,
+        );
+
+        $element['phone1'] = array(
+            '#type' => 'textfield',
+            '#size' => 12,
+            '#title' => '1.6 Телефоны водителя эвакуатора',
+            '#required' => TRUE,
+            '#maxlength' => 12,
+            '#default_value' => isset($items[$delta]['phone1']) ? $items[$delta]['phone1'] : NULL,
+        );
+
+        $element['phone2'] = array(
+            '#type' => 'textfield',
+            '#size' => 12,
+            '#maxlength' => 12,
+            '#default_value' => isset($items[$delta]['phone2']) ? $items[$delta]['phone2'] : NULL,
+        );
+
+        $element['phone3'] = array(
+            '#type' => 'textfield',
+            '#size' => 12,
+            '#maxlength' => 12,
+            '#default_value' => isset($items[$delta]['phone3']) ? $items[$delta]['phone3'] : NULL,
+        );
+
+        $element['street'] = array(
+            '#type' => 'textfield',
+            '#title' => '1.7 Адрес места ночной стоянки машины',
+            '#description' => 'Укажите адрес, где находится место ночной стоянки Вашего эвакуатора.',
+            '#default_value' => isset($items[$delta]['street']) ? $items[$delta]['street'] : NULL,
+        );
+
+        $element['longitude'] = array(
+            '#type' => 'hidden',
+            '#required' => TRUE,
+            '#title' => '1.7 Местоположение (место ночной стоянки машины)',
+            '#default_value' => isset($items[$delta]['longitude']) ? $items[$delta]['longitude'] : '',
+        );
+
+        $element['latitude'] = array(
+            '#type' => 'hidden',
+            '#default_value' => isset($items[$delta]['latitude']) ? $items[$delta]['latitude'] : '',
+                //    '#element_validate' => array('_collabfield_link_validate'),
+        );
+        if(isset($user) && $user->uid == 1){
+            $element['longitude']['#type'] = 'textfield';
+            $element['latitude']['#type'] = 'textfield';
+        }
+    }
+    return $element;
+}
+/**
+ * Implements hook_field_formatter_info().
+ */
+function evacuator_field_formatter_info() {
+  return array(
+    'evacuator_default' => array(
+      'label' => t('Default'),
+      'field types' => array('evacuator'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+//function evacuator_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+//  $element = array();
+//
+//  switch ($display['type']) {
+//    case 'evacuator_default':
+//      foreach ($items as $delta => $item) {
+//        $element[$delta]['#markup'] = theme('evacuator_formatter_default', $item);
+//      }
+//      break;
+//  }
+//
+//  return $element;
+//}
+
+
+
+/**
+ * Implementation of hook_field_settings_form().
+ */
+//function evacuator_field_settings_form($field, $instance, $has_data) {
+//  if ($field['type'] == 'evacuator') {
+//    $settings = $field['settings'];
+//    $form = array();
+//
+////    $form['price2'] = array(
+////      '#type' => 'int',
+////      '#default_value' => $settings['price2'],
+////    );
+////
+//  $form['price2'] = array(
+//    '#type' => 'textfield',
+//    '#title' => t('Maximum length of the first textfield'),
+//    //'#default_value' => $settings['price2'],
+//    '#required' => FALSE,
+//    '#description' => t('The maximum length of the second textfield in characters.'),
+// //   '#element_validate' => array('_element_validate_integer_positive'),
+//    '#disabled' => $has_data,
+//  );
+//
+//    return $form;
+//  }
+//}
+
+/**
+ * Validation callback for a collabfield link element.
+ */
+//function _collabfield_link_validate($element, &$form_state, $form) {
+//  $value = $element['#value'];
+//  if (!empty($value) && !valid_url($value, TRUE)) {
+//    form_error($element, t('Invalid URL.'));
+//  }
+//}
+
+function evacuator_theme($existing, $type, $theme, $path) {
+  return array(
+    'evacuator_formatter_default' => array(
+      'variables' => array('item' => NULL),
+    ),
+  );
+}
+
+function theme_evacuator_formatter_default($item) {
+
+  $output = '';
+  $output .= '<div class="evacuator-wrapper">';
+  $output .= 'Адрес: ' . $item['street'] . "<br>";
+  $output .= 'Role: ' . $item['latitude'] . "<br>";
+  $output .= 'Link: ' . $item['longitude'] . "<br>";
+  $output .= '</div><br />';
+
+  return $output;
+}
+
+function evacuator_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+    $arr = array('price1', 'price2', 'price3', 'price4', 'price5', 'price6', 'price7');
+    foreach ($arr as $price) {
+        if (!is_numeric($items[0][$price])) $items[0][$price] = NULL;
+    }
+
+}
+
+/**
+ * Сохранение информации об эвакуаторе
+ */
+//function album_form_submit(&$form, &$form_state) {
+//  $evacuator = entity_ui_form_submit_build_entity($form, $form_state);
+//  $evacuator->save();
+//  //$form_state['redirect'] = 'admin/structure/albums';
+//}
+
+/**
+ * Проверка прав доступа
+ */
+//function evacuator_access($op, $entity, $account = NULL, $entity_type = 'evacuator') {
+//    return user_access('administer site configuration'); // сущность будет доступна только администратору сайта
+//}
+
+/**
+ * Возвращает эвакуатор по его идентификатору
+ */
+//function evacuator_load($eid) {
+//    $result = entity_load('evacuator', array($eid));
+//    return $result ? reset($result) : FALSE;
+//}
+
+/**
+ * Форма создания/редактирования эвакуатора
+ */
+//function evacuator_form($form, &$form_state, $album, $op = 'edit') {
+//    $form['street'] = array(
+//        '#title' => 'Адрес',
+//        '#description' => 'Укажите улицу',
+//        '#type' => 'textfield',
+//        '#default_value' => isset($evacuator->street) ? $evacuator->street : '',
+//        '#required' => FALSE,
+//    );
+//
+//    $form['latitude'] = array(
+//        '#title' => 'Широта',
+//        '#type' => 'textfield',
+//        '#default_value' => isset($evacuator->latitude) ? $evacuator->latitude : '',
+//        '#required' => FALSE,
+//        //'#size' => 5,
+//    );
+//
+//        $form['longitude'] = array(
+//        '#title' => 'Долгота',
+//        '#type' => 'textfield',
+//        '#default_value' => isset($evacuator->longitude) ? $evacuator->longitude : '',
+//        '#required' => FALSE,
+//        //'#size' => 5,
+//    );
+//
+//    $form['actions'] = array(
+//        '#type' => 'actions',
+//    );
+//
+//    $form['actions']['submit'] = array(
+//        '#type' => 'submit',
+//        '#value' => 'Сохранить',
+//    );
+//
+//    return $form;
+//}
+
+//entity_create(), entity_save(), entity_delete(), entity_view() и entity_access()
+
+/**
+ * Реализация hook_entity_info()
+ */
+//function evacuator_entity_info() {
+//    return array(
+//        'evacuator' => array(// Системное имя сущности
+//            'evacuator' => 'Эвакуатор', // Человеко-понятное имя сущности
+//            'entity class' => 'Entity', // Класс сущности
+//            'controller class' => 'EntityAPIController', // Контроллер сущности
+//            'base table' => 'evacuator', // Таблица, в которой хранится информация об альбомах
+//            'entity keys' => array(
+//                'id' => 'eid', // Название поля, в котором распологаются идентификаторы альбомов
+//                'label' => 'street'                          // Название поля, в котором распологаются названия альбомов
+//            ),
+//      'admin ui' => array(
+//        'path' => 'evacuator'          // Путь, по которому будет доступна админка
+//      ),
+//            'access callback' => 'evacuator_access', // Имя функции, отвечающей за проверку прав доступа
+//            'module' => 'evacuator',
+//        ),
+//    );
+//}
+
+
+
+/**
+ * Реализация hook_schema_alter()
+ */
+//function evacuator_schema_alter(&$schema) {
+//    if(isset($schema['node'])){
+//        dsm($schema);
+//    }
+//    $schema['albums'] = array(
+//    'fields' => array(
+//      'aid' => array(
+//        'description' => 'Album ID',
+//        'type' => 'serial',
+//        'unsigned' => TRUE,
+//        'not null' => TRUE,
+//      ),
+//      'title' => array(
+//        'description' => 'Album title',
+//        'type' => 'varchar',
+//        'length' => 100,
+//        'not null' => TRUE,
+//      ),
+//      'year' => array(
+//        'description' => 'Album year',
+//        'type' => 'int',
+//        'unsigned' => TRUE,
+//        'not null' => TRUE,
+//      ),
+//    ),
+//    'primary key' => array('lid'),
+//  );
+//
+//  return $schema;
+//}
+  /**
+   * Implementation of hook_form_alter().
+   *
+   * The function is named modulename_form_alter.
+   */
+//function evacuator_form_alter(&$form, $form_state, $form_id) {
+//  switch ($form_id) {
+//    case 'evacuator_node_form': // override just only 'place' node type
+//      $form['map'] = array(
+//          '#description' => 'Несколькими кликами мыши определите регион. Последний клик должен быть сделан по первому маркеру.',
+//          '#weight' => 5,
+//          '#markup' => ' <p>Кликните мышью в точку на карте, где находится адрес ночной стоянки Вашего эвакуатора.
+//                        <div id="main-map" style="height:400px;"></div></p>
+//      ');
+//
+//        $form['latFld'] = array(
+//            '#type' => 'hidden',
+//            '#default_value' => !empty($form_state['values']['latFld']) ? $form_state['values']['latFld'] : '',
+//
+//        );
+//
+//        $form['lngFld'] = array(
+//        '#type' => 'hidden',
+//        '#default_value' => !empty($form_state['values']['lngFld']) ? $form_state['values']['lngFld'] : '',
+//        );
+//
+//        $form['street'] = array(
+//            '#type' => 'textfield',
+//            '#title' => 'Адрес',
+//            '#description' => 'Введите адрес ночной стоянки Вашего эвакуатора',
+//            '#default_value' => !empty($form_state['values']['street']) ? $form_state['values']['street'] : '',
+//        );
+//  //      drupal_set_message(print_r($form, TRUE));
+//      break;
+//  }
+//}
+
+// Hook_init() добавляет файлы для гугле карты
+//function anket_init() {
+//  if((($node = menu_get_object()) && $node->type == 'evacuator' && arg(2) == 'edit') || (arg(0) = 'node' && arg(1) = 'add' && arg(2) == 'evacuator')){   //add mode
+//    drupal_add_js('http://maps.google.com/maps/api/js?sensor=false', 'external');
+//    drupal_add_js(drupal_get_path('module', 'anket') .'/js/map.js', 'file');
+//  }
+//}

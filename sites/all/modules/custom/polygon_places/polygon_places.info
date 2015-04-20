@@ -1,0 +1,5 @@
+name = Polygon Places Taxonomy Form :)
+description = "Удобное редактрование полигонов на карте географических регионов (городов, областей, шоссе)."
+package = vekev.ru
+version = 7.x
+core = 7.x

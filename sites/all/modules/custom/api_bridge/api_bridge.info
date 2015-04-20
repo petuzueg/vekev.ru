@@ -1,0 +1,5 @@
+name = API Bridge
+description = "Реализует обмен данными с api.vekev.ru"
+package = vekev.ru
+version = 7.x
+core = 7.x

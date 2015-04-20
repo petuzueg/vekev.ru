@@ -1,0 +1,245 @@
+<?php
+
+//define('GCM_CLIENT_LOGIN_ACTION_URL', variable_get('gcm_client_login_action_url', 'https://www.google.com/accounts/ClientLogin'));
+
+// GCM Server Post URL
+//define('GCM_SERVER_POST_URL', variable_get('gcm_server_post_url', 'https://android.googleapis.com/gcm/send'));
+
+/*
+ * Формирование блока
+ * Implementation of hook_block_info().
+ */
+function orderform_block_info() {
+  $blocks['orderform'] = array(
+    'info' => t('Order form block'),
+  );
+  return $blocks;
+}
+ 
+/**
+ * Implementation of hook_block_view().
+ */
+function orderform_block_view($delta='') {
+//  drupal_add_js(drupal_get_path('module', 'orderform').'/js/jquery.maskedinput.min.js');
+    $block = array();
+  switch ($delta) {
+    case 'orderform':
+      $block['subject'] = t('Order an tou truck!');
+      $block['content'] = block_content();
+      break;
+  }
+  return $block;
+}
+ 
+function block_content() {
+    return drupal_render(get_form());
+}
+
+/*
+ * Получение формы создания ноды и её модификация перед отображением
+ */
+function get_form(){
+    module_load_include('inc', 'node', 'node.pages');
+    $form = node_add('order');
+    $form['field_phone']['#attributes']['class'][] = 'phone';
+   // unset($form['title']);
+    //$form['title']['#disabled'] = 'true';
+    //dsm($form);
+    return $form;
+}
+
+/*
+ * Переопределение формы перед отображением: скрыть поле titile.
+ * Implementation of hook_form_alter().
+ */
+function orderform_form_alter(&$form, &$form_state, $form_id){
+    if('order_node_form' == $form_id){
+   //     $form['title']['#disabled'] = TRUE;
+        $form['title']['#access'] = FALSE;
+        $form['field_msg_received']['#access'] = FALSE;
+        $form['field_executor']['#access'] = FALSE;
+      //   $form['actions']['submit']['#value'] = 'Заказать эвакуатор!'; // АХТУНГ ! Попробовать обозвать латиницей и потом перевести.
+         $form['#action'] .= '?destination=' . $form['#action'];
+        //dsm($form);
+    }
+}
+
+/*
+ * Установка знечения для title в виде "телефон - имя" 
+ * Implementation of hook_node_presave().
+ */
+function orderform_node_presave($node){
+    if('order' == $node->type){
+        $node->title = $node->field_phone['und'][0]['value'] . " - " . $node->field_name['und'][0]['value'];
+    }
+}
+
+/*
+ * После того, как нода сохранена, рассылаем сообщения свободным эвакуаторам.
+ * Implementation of hook_node_insert().
+ */
+function orderform_node_insert($node) {
+    if('order' == $node->type){
+        
+/*
+ * $tokens = get_active_items();
+ */    
+        // id устройств в виде массива надо взять из нод эвакуаторов
+        $tokens = array('APA91bHiQJv-4szmum3I8zpMerOMxaVGz7QXBO0oNWjzxtrWS5QX9pKcLg-t4S3OhvbM12b5-itnVIUbU6cguuDo8f5N07L1jFaGQGijnZyD6WgS95AKMVW25tFlfn7J0yXRFaRU8cLagsmrjI23hZfB9AiIPhRrBw',
+        // 'APA91bH_Axxoa0M7SnShFNtrP3fsqrQWlKXah7pNiCKMtYgc3UQ6N8azwBXKvheUW6PBhuVrRMWdTU8dGRZkFHJpGTuCPeQYjLDbv43IJtQc_jSQLg0JjQq8GIUKqhGgf8TRp727MWX6Vtoq_T0HWPBSAl0Sd3W-1Q',
+         //'APA91bHiQJv-4szmum3I8zpMerOMxaVGz7QXBO0oNWjzxtrWS5QX9pKcLg-t4S3OhvbM12b5-itnVIUbU6cguuDo8f5N07L1jFaGQGijnZyD6WgS95AKMVW25tFlfn7J0yXRFaRU8cLagsmrjI23hZfB9AiIPhRrBw'
+            'APA91bHUmmrTP5otEKu9M3mCHAZ0VHbWWZNw3Cr7Ip66SHscz2vYorQvvXePAla6_giap92HDaF9z3v1cgaH89_PK1qdtCRfZ9MOmJdNqO9-zTkVZbUnrj2TUsB5cPu4kUa6J76RsxRXS-jGz8tfbP94b_ZdTCIn9Q' ,
+            );
+       // $car_type = render(field_view_field('node', $node, 'field_car_type'));
+        $car_type = ". \n\r Тип автомобиля: ";
+        switch ($node->field_car_type['und'][0]['value']) {
+            case 1: 
+                $car_type .= 'легковой';
+                break;
+            case 2: 
+                $car_type .= 'джип или микроавтобус';
+                break;
+            case 3: 
+                $car_type .= 'спортивный';
+                break;
+            case 4: 
+                $car_type .= 'грузовик';
+                break;
+            case 0: 
+                $car_type = '';
+        }
+        
+        $message = 'Телефон: ' . $node->field_phone['und'][0]['value'] . ". \n\r Имя: " . $node->field_name['und'][0]['value'];
+        $message .= ($node->field_location['und'][0]['value']) ? ". \n\r Адрес: " . $node->field_location['und'][0]['value'] : '';
+        $message .= $car_type;
+        $message .= ($node->body['und'][0]['value']) ? ". \n\r Сообщение: " . $node->body['und'][0]['value'] : ''; 
+          
+        $payload = array('message' => $message, 'order' => $node->nid);
+        orderform_gcm_send_message($tokens, $payload, $delay_while_idle = false, $time_to_live = null, $collapse_key = null);
+    }
+}
+
+//function gcm_action_send_message($tokens, $keyValues, $delay_while_idle, $time_to_live, $collapse_key) {
+//    $gcm_message = array();
+//    foreach (explode(",", $keyValues) as $keyValue) {
+//      $temp = explode("=", $keyValue);
+//      $key = $temp[0];
+//      $value = $temp[1];
+//      if (isset($key) && isset($value)) {
+//        $gcm_message[$key] = $value;
+//      }
+//    }
+//    gcm_send_message(array_unique(explode(',', $tokens)), $gcm_message, $delay_while_idle, $time_to_live, $collapse_key);
+//}
+
+function orderform_gcm_send_message($tokens, $payload, $delay_while_idle = false, $time_to_live = null, $collapse_key = null) {
+
+//  gcm_debug("time_to_live", $time_to_live);
+//  gcm_debug("collapse_key", $collapse_key);
+//  gcm_debug("tokens", $tokens);
+//  gcm_debug("payload", $payload);
+  if (!is_array($tokens) || empty($payload) || (is_array($tokens) && empty($tokens))) {
+    return FALSE;
+  }
+
+  // Define an array of result values.
+  $result = array(
+    'count_attempted' => 0,
+    'count_success' => 0,
+    'success' => 0,
+    'message' => '',
+  );
+
+  // Define the header.
+  $headers = array();
+  $headers[] = 'Content-Type:application/json';
+  $headers[] = 'Authorization: key=' .  variable_get('gcm_api_key', 'AIzaSyCmdG2TOf8VqWxXUhNgWskS8RD3cDWjQZ0');
+
+  // Send a push notification to every recipient.
+  $data = array();
+  $registration_ids = array_unique($tokens);
+  $filtered_ids = array();
+
+  $data['registration_ids'] = array();
+  $index = 0;
+  foreach ($registration_ids as $registration_id) {
+    $registration_id = preg_replace('/\s+/', '', $registration_id);
+    if (!empty($registration_id)) {
+      $data['registration_ids'][] = $registration_id;
+      $filtered_ids[$index++] = $registration_id;
+    }
+  }
+
+  $data['data'] = $payload;
+  $data['delay_while_idle'] = ($delay_while_idle == 1 ? true : false);
+
+  // collapse_key is optional
+  if ($collapse_key != null && strlen($collapse_key) > 0) {
+    $data['collapse_key'] = $collapse_key;
+
+    // time_to_live is optional, and relevant only if collapse_key is defined
+    if ($time_to_live != null && intval($time_to_live) > 0) {
+      $data['time_to_live'] = intval($time_to_live);
+    }
+  }
+
+  //dsm($data);
+  $json_data = drupal_json_encode($data);
+ // drupal_set_message($json_data);
+//  gcm_debug("data", $data);
+//  gcm_debug("filtered_ids", $filtered_ids);
+//  gcm_debug("json data", $json_data);
+
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, GCM_SERVER_POST_URL);
+  curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+  curl_setopt($curl, CURLOPT_POST, TRUE);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $json_data);
+  //dsm($json_data);
+  $response = curl_exec($curl);
+  //dsm($response);
+  $info = curl_getinfo($curl);
+  curl_close($curl);
+  $json_response = json_decode($response);
+//dsm($info);
+  if ($info['http_code'] == 200) {
+    $multicast_id = $json_response->multicast_id;
+    $success = $json_response->success;
+    $failure = $json_response->failure;
+    $canonical_ids = $json_response->canonical_ids;
+    $results = $json_response->results;
+
+    watchdog('gcm', t('GCM request @multicast_id was successful: @success successful messages, @failure failed messages, @canonical_ids canonical ids', array('@multicast_id' => $multicast_id, '@success' => $success, '@failure' => $failure, '@canonical_ids' => $canonical_ids)));
+    //dsm('gcm', t('GCM request @multicast_id was successful: @success successful messages, @failure failed messages, @canonical_ids canonical ids', array('@multicast_id' => $multicast_id, '@success' => $success, '@failure' => $failure, '@canonical_ids' => $canonical_ids)));
+
+    // TODO: handle results, including canonical ids
+    //gcm_debug('results', $results);
+
+    gcm_handle_results($filtered_ids, $results);
+  } elseif ($info['http_code'] == 400) {
+      watchdog('gcm', 'GCM JSON error', NULL, WATCHDOG_ERROR);
+  } else { // 500 or 503
+      watchdog('gcm', t('GCM error code @code', array('@code' => $info['http_code'])), NULL, WATCHDOG_ERROR);
+  }
+}
+
+//function gcm_handle_results($registration_ids, $results) {
+//  foreach ($results as $key => $result) {
+//    gcm_debug("result", $result);
+//    $error = $result->error;
+//    if (!empty($error)) {
+//      $registration_id = $registration_ids[$key];
+//      // Remove trailing space
+//      $registration_id = trim($registration_id);
+//      gcm_debug("Key $key Registration ID $registration_id ", $result);
+//      rules_invoke_event('gcm_event_registration_id_error', $registration_id, $error);
+//    }
+//  }
+//}
+//function gcm_debug($category, $message) {
+//  if (variable_get('gcm_debug', false)) {
+//    watchdog('gcm debug', $category . "=" . var_export($message, true));
+//  }
+//}

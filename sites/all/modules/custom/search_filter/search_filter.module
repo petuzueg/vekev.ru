@@ -1,0 +1,89 @@
+<?php
+
+
+  /*
+   * Формирование блока
+   * Implementation of hook_block_info().
+   */
+  function search_filter_block_info() {
+    $blocks['search_filter'] = array(
+      'info' => t('Search filter block'),
+    );
+    return $blocks;
+  }
+
+  /**
+   * Implementation of hook_block_view().
+   */
+  function search_filter_block_view($delta='') {
+//  drupal_add_js(drupal_get_path('module', 'orderform').'/js/jquery.maskedinput.min.js');
+    $block = array();
+    switch ($delta) {
+      case 'search_filter':
+        $block['subject'] = t('Order an tou truck!');
+        $block['content'] = search_filter_block_content();
+        break;
+    }
+    return $block;
+  }
+
+  function search_filter_block_content() {
+    return drupal_get_form('search_filter_form');
+   // return drupal_render(search_filter_form());
+  }
+
+  /**
+   * Implements hook_form().
+   *
+   *
+   */
+  function search_filter_form($form, &$form_state) {
+    $auto_types = array(1 => '<img src="/sites/all/themes/vekev7/images/ico-cars.png">Малолитражный автомобиль',
+                        2 => '<img src="/sites/all/themes/vekev7/images/ico-cars.png">Легковой автомобиль',
+                        3 => '<img src="/sites/all/themes/vekev7/images/ico-cars.png">Внедорожник',
+                        4 => '<img src="/sites/all/themes/vekev7/images/ico-cars.png">Грузовой автомобиль');
+
+    $form = array (
+/*      '#action' => '#', //The action attribute of the HTML form tag
+      'header' => array(
+        '#markup' => '<h1>Что эвакуировать?</h1>',
+      ),*/
+
+      'evak_subject' => array ( //We define a simple text field for the "name"
+        '#type' => 'radios',
+        '#title' => '<h1>Что эвакуировать?</h1>',
+        '#description' => 'Выберите тип.', //The description will be placed right below the field
+        '#options' => $auto_types,
+        '#default_value' => $form_state['input']['evak_subject'],
+       // '#required' => TRUE, //If true the system will perform a simple check on submit so that it is never empty
+      ),
+
+      'city' => array(
+        '#type' => 'textfield',
+        '#title'=> 'Укажите город',
+        '#default_value' => $form_state['inout']['city'],
+      ),
+
+      'submit' => array ( //We define a simple submit button
+        '#type' => 'submit',
+        '#value' => t('My submit'),
+      ),
+    );
+
+    return $form;
+
+  }
+
+  /*
+   * Получение формы создания ноды и её модификация перед отображением
+   */
+  function search_filter_get_form(){
+   // module_load_include('inc', 'node', 'node.pages');
+   // $form = node_add('order');
+    $form = array();
+    $form['field_phone']['#attributes']['class'][] = 'phone';
+    // unset($form['title']);
+    //$form['title']['#disabled'] = 'true';
+    //dsm($form);
+    return $form;
+  }

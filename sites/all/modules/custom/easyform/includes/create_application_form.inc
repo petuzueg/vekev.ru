@@ -47,9 +47,17 @@ function easyform_form_submit($form, &$form_state) {
  */
 function easyform_form($form, &$form_state) {
   global $user;
-  /** Оставьте заявку, мы проведем аукцион среди эвакуаторов в нашей базе данных.
-   * Результат будет отправлен Вам на СМС в течение 1 часа.
-   */
+  $form['how_it_works'] = array(
+    '#markup' => '
+<div class="intro">В нашей базе 508 эвакуаторов по всей России.</div>
+<h3>Как это работает?</h3>
+<div class="">1. Заполните и отправьте заявку</div>
+<div>2. Получите ответы от исполнителей</div>
+ <div>3. Выберите наиболее подходящего исполнителя</div>
+
+<div>Результат будет отправлен Вам на СМС в течение 1 часа.
+Пожалуйста, указывайте реальный телефон в заявке!</div>',
+  );
 
   $form['red_mark'] = array(
     '#markup' => '<div class="red_cap">Поля, помеченные звёздочкой, обязательны для заполнения.</div>',
@@ -90,15 +98,52 @@ function easyform_form($form, &$form_state) {
     '#size' => 40,
   );
 
+
+  $form['where_fieldset']['show_date'] = array(
+    '#type' => 'button',
+    '#value' => 'Указать дату подачи эвакуатора',
+    '#ajax' => array(
+      'callback' => 'easyform_date_link_callback',
+      'wrapper' => 'show-date',
+      'method' => 'replace',
+      'effect' => 'fade',
+    ),
+    '#limit_validation_errors' => array(),
+    '#name' => 'show_date',
+    '#attributes' => array(
+      'class' => array('btn btn-default'),
+    ),
+    '#prefix' => '<div id="date_link">',
+    '#suffix' => '</div>',
+  );
+
   $form['where_fieldset']['date'] = array(
+    '#access' => FALSE,
+    '#prefix' => '<div id="date_link">',
     '#type' => 'textfield',
     '#title' => 'Когда подать',
     '#attributes' => array('placeholder' => date('d.m.Y H:i', time() + 86400)),
-    /*'#description' => 'На этот номер мы направим СМС с результатами торгов.<br/>
-На этот номер телефона будет звонить победитель аукциона.',*/
     '#default_value' => !empty($form_state['values']['date']) ? $form_state['values']['date'] : date('d.m.Y H:i', time() + 86400),
     '#required' => FALSE,
     '#size' => 15,
+  );
+
+  $form['where_fieldset']['hide_date'] = array(
+    '#access' => FALSE,
+    '#type' => 'button',
+    '#value' => 'Убрать точную дату подачи эвакуатора',
+    '#ajax' => array(
+      'callback' => 'easyform_date_link_callback',
+      //'callback ' => array(),
+      'wrapper' => 'hide-date',
+      'method' => 'replace',
+      'effect' => 'fade',
+    ),
+    '#limit_validation_errors' => array(),
+    '#attributes' => array(
+      'class' => array('btn btn-warning'),
+    ),
+    '#suffix' => '</div>',
   );
 
   /**  */
@@ -119,12 +164,32 @@ function easyform_form($form, &$form_state) {
     '#size' => 30,
   );
 
+  $values = array(
+    'Колёса повреждены, отсутствуют или заблокированы',
+    'Колёса на месте, но заблокированы (автоматическая КПП, машина не заводится)',
+    'Колёса на месте, но заблокированы (механическая КПП)',
+    'Колёса на месте и вращаются',
+
+  );
+
   $form['what_fieldset']['what_happened'] = array(
-    '#type' => 'textfield',
-    '#title' => 'В чем неисправность автомобиля',
-    '#attributes' => array('placeholder' => 'Не заводится, '),
-    '#default_value' => !empty($form_state['values']['what_happened']) ? $form_state['values']['what_happened'] : '',
-    '#size' => 30,
+    '#type' => 'select',
+    '#title' => 'Состояние автомобиля',
+    // '#attributes' => array('placeholder' => 'Не заводится, '),
+    '#options' => $values,
+    // '#default_value' => !empty($form_state['values']['what_happened']) ? $form_state['values']['what_happened'] : '',
+    // '#size' => 30,
+    '#required' => TRUE,
+  );
+
+
+  $form['what_fieldset']['what_happened_more_info'] = array(
+    '#type' => 'textarea',
+    '#title' => 'Описание повреждений',
+    // '#attributes' => array('placeholder' => 'Не заводится, '),
+    '#value' => '',
+    '#default_value' => !empty($form_state['values']['what_happened_more_info']) ? $form_state['values']['what_happened_more_info'] : '',
+    // '#size' => 30,
   );
 
   /**  */
@@ -170,7 +235,34 @@ function easyform_form($form, &$form_state) {
     '#type' => 'submit',
     '#value' => 'Отправить данные'
   );
+  $node = node_load(1689);
+  $node->title = '';
+  $view = node_view($node);
+  $rendered = drupal_render($view);
 
+  $form['description'] = array(
+    '#markup' => $rendered,
+  );
   return $form;
 
+}
+
+function easyform_date_link_callback($form, &$form_state) {
+  $commands = array();
+
+  if ($form_state['input']['_triggering_element_name'] == 'show_date') {
+    $form['where_fieldset']['date']['#access'] = TRUE;
+    $form['where_fieldset']['hide_date']['#access'] = TRUE;
+    $commands[] = ajax_command_replace('#date_link', render($form['where_fieldset']['date']) . render($form['where_fieldset']['hide_date']));
+  }
+  else {
+    $form['where_fieldset']['date']['#access'] = FALSE;
+    $form['where_fieldset']['hide_date']['#access'] = FALSE;
+    $commands[] = ajax_command_replace('#date_link', render($form['where_fieldset']['show_date']));
+  }
+
+  return array(
+    '#type' => 'ajax',
+    '#commands' => $commands,
+  );
 }

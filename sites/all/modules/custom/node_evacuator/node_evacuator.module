@@ -1,0 +1,318 @@
+<?php
+
+ /**
+  * Implements hook_token_info().
+  *
+  *
+  */
+ function node_evacuator_token_info() {
+   $info['tokens']['user']['password'] = array(
+     'name' => t('Password'),
+     'description' => t('Password.'),
+   );
+   /*$info['types']['user'] = array(
+     'name' => t('Password'),
+     'description' => t('Tokens related to individual user.'),
+   );*/
+   return $info;
+ }
+
+  /**
+   * Implements hook_tokens().
+   */
+  function node_evacuator_tokens($type, $tokens, array $data = array(), array $options = array()) {
+    $replacements = array();
+    $sanitize = !empty($options['sanitize']);
+    if ($type == 'user') {
+      foreach ($tokens as $name => $original) {
+        if ($name == 'password') {
+          $replacements[$original] = $data['user']->password;
+        }
+      }
+    }
+    return $replacements;
+  }
+
+  /**
+   * Implements hook_init().
+   */
+  function node_evacuator_init() {
+    // Since this file should only be loaded on the front page, it cannot be
+    // declared in the info file.
+    if ('node/add/evacuator' == $_GET['q'] || strstr($_GET['q'], '/edit')) {
+      drupal_add_js(drupal_get_path('module', 'node_evacuator') . '/js/interface.js');
+      drupal_add_css(drupal_get_path('module', 'node_evacuator') . '/css/node_evacuator_style.css');
+    }
+  }
+
+  /**
+   * Implements hook_validate().
+   */
+  function node_evacuator_node_validate($node, $form, &$form_state) {
+    global $user;
+    if ($form['form_id']['#value'] == 'evacuator_node_form' && !$user->uid) {
+      $pass = $form_state['values']['pass'];
+      $pass2 = $form_state['values']['pass2'];
+
+      if (strlen($pass) < 5) {
+        form_set_error('pass', 'Длина пароля должна быть больше 4 символов!');
+      }
+
+      if ($pass2 != $pass) {
+        form_set_error('pass1', 'Значения в полях "2.3 Пароль" и "2.4 Повтор пароля" должны совпадать!');
+      }
+
+      if (!filter_var($form_state['values']['mail'], FILTER_VALIDATE_EMAIL)) {
+        form_set_error('mail', 'Поле 2.2 содержит неверный адрес электронной почты! Перепроверьте, пожалуйста адрес электронной почты.');
+      }
+
+      if (db_query("SELECT COUNT(*) FROM {users} WHERE mail = :mail", array(':mail' => $form_state['values']['mail']))->fetchField()) {
+        // User does exist
+        form_set_error('mail', 'Пользователь с такой электронной почтой уже зарегистрирован. <a href="/user/password" target="_blank">Забыли пароль?</a>');
+      }
+    }
+    /*    $regions = get_regions_by_coordinates($lat, $lng);
+        //$form_state['field_region']['und']['#value'] = $regions;
+        $form_item['#parents'] = array('field_region');
+        form_set_value($form_item, $regions, $form_state);*/
+  }
+
+  /**
+   * Implements hook_form_BASE_FORM_ID_alter().
+   */
+  function node_evacuator_form_evacuator_node_form_alter(&$form, &$form_state, $form_id) {
+    global $user;
+    if ($user->uid == 0) {
+      _node_evacuator_anonymous_addition($form, $form_state, $form_id);
+    }
+    if($user->uid != 1) {
+      $form['body']['#after_build'][] = '_node_evacuator_customize_form';
+    }
+    $form['intro'] = array(
+      '#markup' => '<strong>Внимание:</strong> ознакомьтесь с <a href="/moj-evakuator/pravila" target="_blank">правилами</a>,
+прежде чем добавлять Ваше предложение в каталог. Описания, не соответсвующие правилам, будут удалены.<br/>
+<br/>
+Поля, отмеченные символом <span title="Обязательное поле" class="form-required">*</span>, обязательны для заполнения.',
+      '#weight' => -49,
+    );
+
+    $form['field_driver_phone']['description'] = array(
+      '#markup' => '<label>1.4 Телефон водителя эвакуатора</label><div class="description">
+                    Пример: <strong>+7(499)343-52-78</strong><br>
+                    Вводите <strong>один телефон в одно поле</strong>, пожалуйста.<br>
+                    <strong>Телефон в первом поле показывается чаще остальных</strong>.
+                </div>',
+      '#weight' => -50,
+    );
+
+    $form['title']['#title'] = '1.1 ' . $form['title']['#title'];
+    $form['field_capacity']['und']['#title'] = '1.2 ' . $form['field_capacity']['und']['#title'];
+    $form['field_options']['und']['#title'] = '1.3 ' . $form['field_options']['und']['#title'];
+    $form['field_driver_phone']['und']['#title'] = '1.4 ' . $form['field_driver_phone']['und']['#title'];
+    $form['field_photos']['und']['#title'] = '1.5 ' . $form['field_photos']['und']['#title'];
+    $form['field_static_address']['und'][0]['address']['#title'] = '1.6 ' . $form['field_static_address']['und'][0]['address']['#title'];
+    $form['body']['und'][0]['#title'] = '1.7 ' . $form['body']['und'][0]['#title'];
+    $form['field_static_address']['und'][0]['googlemap']['#weight'] = -50;
+    $form['field_static_address']['und'][0]['address']['field']['#weight'] = -40;
+    $form['field_static_address']['und'][0]['help']['#attributes']['class'][] = 'description';
+    unset($form['field_static_address']['und'][0]['latitem']);
+    unset($form['field_static_address']['und'][0]['lngitem']);
+    unset($form['field_static_address']['und'][0]['remove']);
+  }
+
+  function _node_evacuator_anonymous_addition(&$form, &$form_state, $form_id) {
+    drupal_set_title('Добавить эвакуатор в каталог vekev.ru, бесплатно');
+    $form['anon_intro'] = array(
+      '#markup' => '<p>Здравствуйте! Спасибо, что проявили интерес к нашему каталогу эвакуаторов!<br/>
+Если вы <strong>уже регистрировались</strong> в нашем каталоге, войдите в <a href="/user">личный кабинет</a> для добавления эвакуаторов.<br/>
+После заполнения данной анкеты, информация о Ваших услугах эвакуации поступит в наш
+<a href="/" target="_blank" title="Каталог эвакуаторов VEKEV.RU">каталог</a>.
+    Просим Вас внимательно заполнить анкету и указать актуальные данные. Наша анкета состоит <strong>всего из двух шагов</strong>.</p>
+<p>Спасибо за Ваше внимание!</p>',
+      '#weight' => -50,
+    );
+    $form['step1'] = array(
+      '#markup' => '<h2>Шаг 1. Введите данные о Вашем эвакуаторе</h2>',
+      '#weight' => -48,
+    );
+    $form['step2'] = array(
+      '#markup' => '<h2>Шаг 2. Введите Ваши данные</h2>',
+      '#weight' => 40,
+    );
+
+    $form['surname'] = array(
+      '#type' => 'textfield',
+      '#default_value' => !empty($form_state['values']['surname']) ? $form_state['values']['surname'] : '',
+      '#title' => '2.1 Фамилия, имя, отчество',
+      '#description' => 'Подскажите, как к Вам обращаться?<br/> Например, <strong>Иванов Иван Иванович</strong>.',
+      '#size' => 50,
+      '#maxlength' => 30,
+      '#weight' => 41,
+    );
+
+    $form['mail'] = array(
+      '#type' => 'textfield',
+      '#title' => '2.2 Ваша электронная почта',
+      '#size' => 50,
+      '#maxlength' => 30,
+      '#default_value' => !empty($form_state['values']['mail']) ? $form_state['values']['surnamemail'] : '',
+      '#required' => TRUE,
+      '#description' => 'Почта необходима на случай, если Вы забудете пароль.',
+      '#weight' => 42,
+    );
+
+    $form['pass'] = array(
+      '#type' => 'password',
+      '#title' => '2.3 Придумайте пароль для входа в личный кабинет каталога',
+      '#size' => 50,
+      '#maxlength' => 20,
+      '#required' => TRUE,
+      '#weight' => 43,
+    );
+
+    $form['pass2'] = array(
+      '#type' => 'password',
+      '#title' => '2.4 Повторите пароль',
+      '#size' => 50,
+      '#maxlength' => 20,
+      '#required' => TRUE,
+      '#weight' => 44,
+    );
+  }
+
+  function format_phone($phone) {
+    $phone = preg_replace("/[^0-9]/", "", $phone);
+    if (strlen($phone) == 7) {
+      return preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})/", "+7 (495) $1-$2-$3", $phone);
+    }
+    elseif (strlen($phone) > 7) {
+      if (substr($phone, 0, 1) == 8) {
+        return preg_replace("/([0-9]{1})([0-9]{3})([0-9]{3})([0-9]{2})([0-9]{2})/", "+7 ($2) $3-$4-$5", $phone);
+      }
+      else {
+        return preg_replace("/([0-9]{1})([0-9]{3})([0-9]{3})([0-9]{2})([0-9]{2})/", "+$1 ($2) $3-$4-$5", $phone);
+      }
+    }
+    else {
+      return $phone;
+    }
+  }
+
+  function node_evacuator_node_submit($form, &$form_state) {
+    global $user;
+    if ($form->form_id == 'evacuator_node_form' && !$user->uid) {
+      //Добавить нового пользователя
+      $mail = $form->mail;
+      $pass = $form->pass;
+      $new_user = array(
+        'status' => 1,
+        'mail' => $mail,
+        'pass' => $pass,
+        'name' => $mail,
+        'timezone' => 'Europe/Moscow',
+        'profile_surname' => $form->surname,
+        'roles' => array(
+          DRUPAL_AUTHENTICATED_RID => 'authenticated user',
+          9 => 'Исполнители',
+        ),
+      );
+      //Зарегистрировать нового пользователя
+      $created_user = user_save('', $new_user);
+
+      //Авторизовать нового пользователя.
+      $user = user_load($created_user->uid, TRUE);
+      $form->name = $mail;
+      $form->uid = $user->uid;
+      user_login_finalize($form_state);
+      $form_state['redirect'] = 'moj-evakuator/all';
+
+      //$form['#action'] .= '?destination=thank-you';
+     // dsm($form);
+     // dsm($form_state);
+     // $form_state['rebuild'] = TRUE;
+      $form_state['no_redirect'] = FALSE;
+      $user->password = $pass;
+
+      $message = 'Вы удачно зарегистрированы в нашем каталоге! <br>Выполнен автоматический вход в личный кабинет.<br/>';
+      //Отпаравить приветственное мыло пользователю
+      drupal_mail('user', 'register_no_approval_required', $mail, NULL, array('account' => $user), variable_get('site_mail', 'robot@vekev.ru'));
+      drupal_mail('user', 'register_no_approval_required', 'petuzueg@gmail.com', NULL, array('account' => $user), variable_get('site_mail', 'robot@vekev.ru'));
+
+      drupal_set_message($message);
+      //drupal_goto('moj-evakuator/all');
+    }
+
+    $patterns[] = '/, Россия/'; // remove country
+    $patterns[] = '/, [0-9]{6}/'; // remove zip code
+    $form->field_static_address_text['und'][0]['value'] = preg_replace($patterns, '', $form->field_static_address_text['und'][0]['value']);
+    $regions = _node_evacuator_get_regions_by_coordinates($form->field_static_address['und'][0]['lat'], $form->field_static_address['und'][0]['lng']);
+    $form->field_region['und'] = $regions;
+    $phones = array();
+    foreach ($form->field_driver_phone['und'] as $phone) {
+      $phones[] = array('value' => format_phone($phone['value']));
+    }
+    $form->field_driver_phone['und'] = $phones;
+  }
+
+  function _node_evacuator_get_regions_by_coordinates($lat, $lng) {
+    $regions1 = $regions2 = array();
+    $all_terms = taxonomy_get_tree(5, 0, NULL, TRUE);
+    foreach ($all_terms as $term) {
+      if (_node_evacuator_is_in_region($lat, $lng, $term->field_polygon['und'][0]['value'])) {
+        if (taxonomy_get_children($term->tid) == array()) {
+          $regions1[] = array('tid' => $term->tid);
+        }
+        else {
+          $regions2[] = array('tid' => $term->tid);
+        }
+      }
+    }
+    return array_merge($regions1, $regions2);
+  }
+
+  function _node_evacuator_is_in_region($lat, $lng, $polygon) {
+    $region = json_decode($polygon);
+    $region = _node_evacuator_split_x_y($region);
+
+    $points_count = 0;
+
+    if($region){
+      $points_count = count($region[0]);
+    }
+
+    if ($points_count && _node_evacuator_is_in_polygon($points_count, $region[0], $region[1], $lng, $lat)) {
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  function _node_evacuator_is_in_polygon($points_polygon, $vertices_x, $vertices_y, $longitude_x, $latitude_y) {
+    $i = $j = $c = 0;
+    for ($i = 0, $j = $points_polygon - 1; $i < $points_polygon; $j = $i++) {
+      if ((($vertices_y[$i] > $latitude_y != ($vertices_y[$j] > $latitude_y)) &&
+        ($longitude_x < ($vertices_x[$j] - $vertices_x[$i]) * ($latitude_y - $vertices_y[$i]) / ($vertices_y[$j] - $vertices_y[$i]) + $vertices_x[$i]))
+      ) {
+        $c = !$c;
+      }
+    }
+    return $c;
+  }
+
+  function _node_evacuator_split_x_y($region) {
+    $result = array();
+    for ($i = 0; $i < count($region); $i++) {
+      $result[0][] = $region[$i][0];
+      $result[1][] = $region[$i][1];
+    }
+    return $result;
+  }
+
+  function _node_evacuator_customize_form(&$form) {
+    // Hide guideliness
+    $form[LANGUAGE_NONE][0]['format']['guidelines']['#access'] = FALSE; // Note ‘und’, you may need to set your comment form language code instead
+    // Hide Filter Tips
+    $form[LANGUAGE_NONE][0]['format']['help']['#access'] = FALSE;
+    //Hide text format window
+    $form[LANGUAGE_NONE][0]['format']['#access'] = FALSE;
+    return $form;
+  }

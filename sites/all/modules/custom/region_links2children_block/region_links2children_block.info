@@ -1,0 +1,5 @@
+name = Block for links to children-regions
+description = "Добавляет блок со ссылками на дочерние регионы материнского региона"
+package = vekev.ru
+version = 7.x
+core = 7.x

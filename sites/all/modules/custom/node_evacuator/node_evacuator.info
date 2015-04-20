@@ -1,0 +1,5 @@
+name = Node Evacuator
+description = "Модифицирует форму добавления и редактирования нового эвакуатора."
+package = vekev.ru
+version = 7.x
+core = 7.x

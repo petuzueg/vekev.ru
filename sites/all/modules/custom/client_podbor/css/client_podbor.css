@@ -1,0 +1,51 @@
+#client-podbor-form .form-item {
+    display: inline-block;
+    width: 300px;
+    font-weight: normal;
+}
+
+#client-podbor-simple-form {
+    display: inline-block;
+}
+
+/*#e-count {
+    margin-right: 285px;
+}*/
+#edit-address {
+    padding-left: 5px;
+}
+#edit-address, #edit-type {
+    width: 290px;
+    font-size: 16px;
+    height: 30px;
+    border: 1px solid #B0B0B0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+#edit-type {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    height: 32px;
+    vertical-align: middle;
+    width: 100%;
+}
+
+#div-edit-submit input {
+    font-size: 16px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    height: 31px;
+    width: 147px;
+    background-color: #F7F8F9;
+    border: 1px solid #B0B0B0;
+    float: right;
+}
+.header .top-row div.phone {
+    margin: 34px auto 0;
+}
+.active-items li{
+    background-color: #E6F6FF;
+}

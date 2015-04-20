@@ -1,0 +1,5 @@
+name = Search filter
+description = "Фильтр подбора эвакуатора под свои требования."
+package = vekev.ru
+version = 7.x
+core = 7.x

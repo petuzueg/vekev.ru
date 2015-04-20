@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * Implements hook_node_update().
+ *
+ *
+ */
+function api_bridge_node_update($node) {
+  if ($node->type == 'evacuator') {
+    $add_params = new stdClass();
+    $add_params->b3 = round($node->field_static_address['und'][0]['lat'], 4); // latitude
+    $add_params->b4 = round($node->field_static_address['und'][0]['lng'], 4); // longitude
+    $data = array(
+      'a1' => $node->nid,
+      'a3' => 3,
+      'a4' => $add_params,
+    );
+
+    update_remote_data($data);
+  }
+}
+
+/**
+ * Implements hook_node_presave().
+ *
+ *
+ */
+function api_bridge_node_presave($node) {
+  if ($node->type == 'evacuator' && count($node->field_activation_key['und']) == 0 ) {
+    $node->field_activation_key['und'][0]['value'] = substr(md5(rand()), 0, 7);
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ *
+ */
+function api_bridge_node_insert($node) {
+  if ($node->type == 'evacuator') {
+    $r = new stdClass();
+    $r->b8 = $node->field_activation_key['und'][0]['value'];
+    $data = array(
+      'a1' => $node->nid,
+      'a3' => 10,
+      'a4' => $r,
+    );
+
+    update_remote_data($data);
+
+    // Обновление статуса (создание записи в таблице current_location)
+    $add_params = new stdClass();
+    $add_params->b2 = "0";
+    $data = array(
+      'a1' => $node->nid,
+      'a3' => 6,
+      'a4' => $add_params,
+    );
+    update_remote_data($data);
+
+    // Установка координат ночной стоянки
+    $add_params = new stdClass();
+    $add_params->b3 = round($node->field_static_address['und'][0]['lat'], 4); // latitude
+    $add_params->b4 = round($node->field_static_address['und'][0]['lng'], 4); // longitude
+    $data = array(
+      'a1' => $node->nid,
+      'a3' => 3,
+      'a4' => $add_params,
+    );
+    update_remote_data($data);
+  }
+}
+
+function update_remote_data($data) {
+  $url = 'http://api.vekev.ru/v0.1/index.php';
+
+  $options = array(
+    'http' => array(
+      'method' => 'POST',
+      'content' => json_encode($data),
+      'header' => "Content-Type: application/json\r\n" . "Accept: application/json\r\n"
+    )
+  );
+
+  $context = stream_context_create($options);
+  $result = file_get_contents($url, FALSE, $context);
+  $response = json_decode($result);
+  //ToDo Добавить сообщение в журнал
+  return $response;
+}

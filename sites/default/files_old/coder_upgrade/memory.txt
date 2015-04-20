@@ -1,0 +1,112 @@
+
+
+
+====================
+initial
+Peak: 25,165,824 bytes
+Curr: 25,165,824 bytes
+
+
+
+====================
+load upgrade code
+Peak: 26,738,688 bytes
+Curr: 26,738,688 bytes
+
+
+
+====================
+load parser code
+Peak: 28,835,840 bytes
+Curr: 28,835,840 bytes
+
+
+
+====================
+create reader for file anket.module
+Peak: 36,700,160 bytes
+Curr: 35,913,728 bytes
+
+
+
+====================
+build specific grammar
+Peak: 37,748,736 bytes
+Curr: 37,748,736 bytes
+
+
+
+====================
+reset reader
+Peak: 37,748,736 bytes
+Curr: 37,486,592 bytes
+
+
+
+====================
+create reader for file /home/petu/www/vekev.ru/sites/default/files/coder_upgrade/new/anket/anket.module
+Peak: 37,748,736 bytes
+Curr: 37,224,448 bytes
+
+
+
+====================
+set snippet
+Peak: 37,748,736 bytes
+Curr: 37,748,736 bytes
+
+
+
+====================
+add token names
+Peak: 37,748,736 bytes
+Curr: 37,748,736 bytes
+
+
+
+====================
+build grammar
+Peak: 45,088,768 bytes
+Curr: 45,088,768 bytes
+
+
+
+====================
+apply function call conversions
+Peak: 45,613,056 bytes
+Curr: 45,613,056 bytes
+
+
+
+====================
+apply hook function conversions
+Peak: 45,613,056 bytes
+Curr: 45,613,056 bytes
+
+
+
+====================
+apply file conversions
+Peak: 45,613,056 bytes
+Curr: 45,613,056 bytes
+
+
+
+====================
+create writer
+Peak: 45,613,056 bytes
+Curr: 45,613,056 bytes
+
+
+
+====================
+writer->toString
+Peak: 45,613,056 bytes
+Curr: 45,613,056 bytes
+
+
+
+====================
+reset reader
+Peak: 45,613,056 bytes
+Curr: 45,613,056 bytes

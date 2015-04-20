@@ -1,0 +1,9 @@
+name = Страница подбора эвакуатора простая
+description = "Добавляет страницу с формой подбора"
+package = vekev.ru
+dependencies[] = views_arguments_extras
+version = 7.x
+core = 7.x
+
+scripts[] = js/interface.js
+stylesheets[all][] = css/client_podbor.css

@@ -1,0 +1,108 @@
+<?php
+
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
+//Unset /node default path
+function places_menu_alter(&$callbacks) {
+   unset($callbacks['node']);
+}
+  /**
+   * Implementation of hook_form_alter().
+   *
+   * The function is named modulename_form_alter.
+   */
+function places_form_alter(&$form, $form_state, $form_id) {
+  switch ($form_id) {
+    case 'place_node_form': // override just only 'place' node type
+      $form['map'] = array(
+          '#description' => 'Несколькими кликами мыши определите регион. Последний клик должен быть сделан по первому маркеру.',
+          '#weight' => 5,  
+          '#markup' => ' <p>Несколькими кликами мыши определите регион. Последний клик должен быть сделан по первому маркеру, чтобы замкнуть регион.
+                        <div id="main-map" style="height:400px;"></div>
+                        <div id="side">
+                          <input id="reset" value="Сбросить" type="button" class="navi"/>
+                          <input id="showData"  value="Регион готов!" type="button" class="navi"/>
+                        </div></p>
+      ');
+  //      drupal_set_message(print_r($form, TRUE));
+      break;
+  }
+}
+
+function places_init() {
+  //  drupal_set_message('1');
+  if(arg(0) == 'node' && arg(1) == 'add' && arg(2) == 'place' ){   //add mode
+     // drupal_set_message('2');
+    drupal_add_js(drupal_get_path('module', 'places') .'/js/polygon.min.js', 'file');
+    drupal_add_js('http://maps.google.com/maps/api/js?sensor=false', 'external');
+    //drupal_add_html_head('<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
+    drupal_add_js(drupal_get_path('module', 'places') .'/js/map.js', 'file');
+    drupal_add_css(drupal_get_path('module', 'places') .'/css/style.css', 'file');
+  }
+  
+  if(($node = menu_get_object()) && $node->type == 'place' && arg(2) == 'edit'){    // edit mode
+  //    drupal_set_message('2');
+    drupal_add_js(drupal_get_path('module', 'places') .'/js/polygon.min.js', 'file');
+    drupal_add_js('http://maps.google.com/maps/api/js?sensor=false', 'external');
+    drupal_add_js(drupal_get_path('module', 'places') .'/js/map.js', 'file');
+    drupal_add_css(drupal_get_path('module', 'places') .'/css/style.css', 'file');    
+  }
+      
+}
+
+// code for creating regions
+
+function show_items_inside_region($polygon){
+    //print get_nids($polygon); die;
+    return views_embed_view('evacuators_table', 'block_3', get_nids($polygon));
+}
+
+function get_nids($polygon){
+    $result = '';
+    $points = get_data();
+//print_r($points); die();
+    $region = unserialize($polygon);
+    $region = split_x_y($region);
+//print_r($region);
+    for($i = 0; $i < count($points); $i++){
+        if (is_in_polygon(count($region[0]), $region[0], $region[1], $points[$i]->longitude, $points[$i]->latitude)){
+            $result .= $points[$i]->nid . ",";
+        }
+    }
+    return $result . "0";
+}
+
+function is_in_polygon($points_polygon, $vertices_x, $vertices_y, $longitude_x, $latitude_y){
+    $i = $j = $c = 0;
+    for ($i = 0, $j = $points_polygon-1 ; $i < $points_polygon; $j = $i++) {
+        if ( (($vertices_y[$i] > $latitude_y != ($vertices_y[$j] > $latitude_y)) &&
+    ($longitude_x < ($vertices_x[$j] - $vertices_x[$i]) * ($latitude_y - $vertices_y[$i]) / ($vertices_y[$j] - $vertices_y[$i]) + $vertices_x[$i]) ) )
+        $c = !$c;
+    }
+    return $c;
+}
+
+function get_data(){
+    $sql = 'select entity_id as nid, field_evacuator_latitude as latitude, field_evacuator_longitude as longitude from field_data_field_evacuator';
+    $res = db_query($sql)->fetchAll();
+//    for($i = 0; $i < $res.size; $i++){
+//        $rows[] = 
+//    }
+//    print_r($res);die;
+//    while ($res) {
+//        $rows[] = $r;
+//    }
+    return $res;
+}
+
+function split_x_y($region){
+//print_r($region);
+  for($i = 0; $i < count($region); $i++){
+    $result[0][] = $region[$i][0];
+    $result[1][] = $region[$i][1];
+  }
+//  print_r($result);
+  return $result;
+}
+
+?>

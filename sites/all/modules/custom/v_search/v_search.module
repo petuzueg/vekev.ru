@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * Implements hook_form_alter().
+ *
+ *
+ */
+function v_search_form_alter(&$form, &$form_state, $form_id) {
+  // dsm($form_id);
+  if ('views_exposed_form' == $form_id) {
+
+    $form['#attached']['css'] = array(
+      drupal_get_path('module', 'v_search') . '/css/v_search.css',
+    );
+    // Обёртка для группировки всех полей ввода в одну строку.
+    $form['group'] = array(
+      '#type' => 'container',
+    );
+
+    $form['#attributes'] = array(
+      'class' => array('navbar-form navbar-left'),
+      'role' => 'search',
+    );
+
+    $form['city']['#size'] = 10;
+    $form['city']['#prefix'] = '<div class="input-group">';
+    $form['city']['#attributes'] = array(
+      'class' => array('auto_submit form-control form-text'),
+      'placeholder' => array("Город, улица..."),
+    );
+    //$form['search-query']['#prefix'] = '<div class="input-group">';
+    $form['search-query']['#attributes'] = array(
+      'class' => array('auto_submit form-control form-text'),
+      'placeholder' => array("Искать эвакуатор..."),
+    );
+
+    $form['submit']['#prefix'] = '<span class="input-group-btn">';
+    $form['submit']['#attributes'] = array('class' => array('btn-default'),);
+    $form['submit']['#value'] = '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>';
+    $form['submit']['#suffix'] = '</span></div>';
+
+    $form['#theme'] = array();
+   // $form['#pre_render'] = array();
+   // $form['#process'] = array();
+
+    $form['group']['city'] = $form['city'];
+    $form['group']['radius'] = $form['radius'];
+    $form['group']['search-query'] = $form['search-query'];
+    $form['group']['submit'] = $form['submit'];
+
+    unset($form['search-query']);
+    unset($form['submit']);
+    unset($form['radius']);
+    unset($form['city']);
+
+    //dsm($form);
+
+  }
+
+}

@@ -1,0 +1,120 @@
+<?php
+
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
+//Unset /node default path
+
+function polygon_places_menu_alter(&$callbacks) {
+   unset($callbacks['node']);
+}
+  /**
+   * Implementation of hook_form_alter().
+   *
+   * The function is named modulename_form_alter.
+   */
+function polygon_places_form_alter(&$form, $form_state, $form_id) {
+  if($form_id == 'taxonomy_form_term' && $form['#vocabulary']->vid == 5){
+    //dsm($form);
+    $form['relations']['#collapsed'] = false;
+    $form['map'] = array(
+          '#description' => 'Несколькими кликами мыши определите регион. Последний клик должен быть сделан по первому маркеру.',
+          '#weight' => 5,
+          '#markup' => '
+<style>
+#field-polygon-add-more-wrapper, #field-map-add-more-wrapper {
+  /*display: none;*/
+}
+#edit-parent {
+  height: 260px;
+}
+</style>
+<div id="hand_b"/><div id="shape_b"/>
+<div id="map" style="width: 100%; height: 500px"></div>
+<table id="featuretable"><tbody id="featuretbody"></tbody></table>
+<h3>Инструкция по использованию карты</h3>
+<p><strong>Клик по точке</strong> - удаляет точку.<br/>
+  <strong>Перейти на область</strong> - ставит по центру карты первую точку области.<br/>
+  <strong>Очистить</strong> - очищает область.<br/> Старайтесь не ставить лишних точек.
+  Большое количество точек значительно замедляет работу алгоритма. Регионы можно задавать с небольшой погрешностью.<br/>
+  <strong>Внимание!</strong> Карта показывается пользователю именно в том состоянии (увеличение и положение центра карты), в котором её сохранили!
+</p>
+<div id="save" onclick="MapToolbar.loadPoints()">Load points!</div>
+<div id="save" onclick="MapToolbar.savePoints()">Save points!</div>
+<script type="text/javascript">
+  initialize();
+  MapToolbar.initFeature("shape");
+  MapToolbar.loadPoints();
+</script>
+      ');
+    $form['actions']['submit']['#attributes'] = array('onclick' => array('MapToolbar.savePoints();'));
+  }
+}
+
+function polygon_places_init() {
+  if(arg(2) == 'taxonomy' && arg(4) == 'add' && arg(3) == 'vocabulary_5' ){   //add mode
+    drupal_add_js('http://maps.google.com/maps/api/js?sensor=false', 'external');
+    drupal_add_js(drupal_get_path('module', 'polygon_places') .'/js/mapToolbar.js', 'file');
+  }
+  if(arg(0) == 'taxonomy' && arg(1) == 'term' && arg(3) == 'edit'){    // edit mode
+    $term = taxonomy_term_load(arg(2));
+    if($term->vid == 5){
+      drupal_add_js('http://maps.google.com/maps/api/js?sensor=false', 'external');
+      drupal_add_js(drupal_get_path('module', 'polygon_places') .'/js/mapToolbar.js', 'file');
+    }
+  }
+}
+
+// code for creating regions
+
+function polygon_places_show_items_inside_region($polygon){
+    //print get_nids($polygon); die;
+    return views_embed_view('evacuators_table', 'block_3', polygon_places_get_nids($polygon));
+}
+
+function polygon_places_get_nids($polygon){
+    $result = '';
+    $points = polygon_places_get_data();
+//print_r($points); die();
+    $region = unserialize($polygon);
+    $region = polygon_places_split_x_y($region);
+//print_r($region);
+    for($i = 0; $i < count($points); $i++){
+        if (polygon_places_is_in_polygon(count($region[0]), $region[0], $region[1], $points[$i]->longitude, $points[$i]->latitude)){
+            $result .= $points[$i]->nid . ",";
+        }
+    }
+    return $result . "0";
+}
+
+function polygon_places_is_in_polygon($points_polygon, $vertices_x, $vertices_y, $longitude_x, $latitude_y){
+    $i = $j = $c = 0;
+    for ($i = 0, $j = $points_polygon-1 ; $i < $points_polygon; $j = $i++) {
+        if ( (($vertices_y[$i] > $latitude_y != ($vertices_y[$j] > $latitude_y)) &&
+    ($longitude_x < ($vertices_x[$j] - $vertices_x[$i]) * ($latitude_y - $vertices_y[$i]) / ($vertices_y[$j] - $vertices_y[$i]) + $vertices_x[$i]) ) )
+        $c = !$c;
+    }
+    return $c;
+}
+
+function polygon_places_get_data(){
+    $sql = 'select entity_id as nid, field_evacuator_latitude as latitude, field_evacuator_longitude as longitude from field_data_field_evacuator';
+    $res = db_query($sql)->fetchAll();
+//    for($i = 0; $i < $res.size; $i++){
+//        $rows[] =
+//    }
+//    print_r($res);die;
+//    while ($res) {
+//        $rows[] = $r;
+//    }
+    return $res;
+}
+
+function polygon_places_split_x_y($region){
+//print_r($region);
+  for($i = 0; $i < count($region); $i++){
+    $result[0][] = $region[$i][0];
+    $result[1][] = $region[$i][1];
+  }
+//  print_r($result);
+  return $result;
+}

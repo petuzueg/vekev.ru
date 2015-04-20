@@ -1,0 +1,687 @@
+diff -up -r anket.module anket.module
+--- anket.module	2012-03-02 18:52:31.000000000 +0000
++++ anket.module	2012-03-03 03:29:43.989649125 +0000
+@@ -1,18 +1,35 @@
+ <?php
+ 
++/**
++ * @todo Please document this function.
++ * @see http://drupal.org/node/1354
++ */
+ function anket_init() {
+-  if(arg(0) == 'evacuator' && arg(1) == 'new' ){   //add mode
+-    drupal_add_js('http://maps.google.com/maps/api/js?sensor=false', 'external');
+-    //  drupal_add_html_head('<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
+-    drupal_add_js(drupal_get_path('module', 'anket') .'/js/map.js', 'file');
++  if (arg(0) == 'evacuator' && arg(1) == 'new' ) { //add mode
++    drupal_add_js('http://maps.google.com/maps/api/js?sensor=false', array('type' => 'external', 'scope' => JS_DEFAULT));
++//  drupal_add_html_head('<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
++    drupal_add_js(drupal_get_path('module', 'anket') . '/js/map.js', array('type' => 'file', 'scope' => JS_DEFAULT));
+   }
+ }
+ 
+-function anket_perm() {
+-    return array('access anket form');
++/**
++ * @todo Please document this function.
++ * @see http://drupal.org/node/1354
++ */
++function anket_permission() {
++  return array(
++    'access anket form' => array(
++      'title' => t('access anket form'),
++      'description' => t('TODO Add a description for \'access anket form\''),
++    ),
++  );
+ }
+ 
+ // По адресу 'evacuator/new' должен выводиться результат работы функции
++/**
++ * @todo Please document this function.
++ * @see http://drupal.org/node/1354
++ */
+ function anket_menu() {
+   $items = array();
+   $items['evacuator/new'] = array(
+@@ -27,48 +44,56 @@ function anket_menu() {
+   return $items;
+ }
+ 
+-// Эта функция вызывается каждый раз, когда мы посещаем страницу. 
++// Эта функция вызывается каждый раз, когда мы посещаем страницу.
+ // Функция генерирует и возвращает нашу форму.
++/**
++ * @todo Please document this function.
++ * @see http://drupal.org/node/1354
++ */
+ function anket_form() {
+   return drupal_get_form('anket_my_form');
+ }
+ 
+ // Функция-строитель нашей формы.
++/**
++ * @todo Please document this function.
++ * @see http://drupal.org/node/1354
++ */
+ function anket_my_form($form, &$form_state) {
+- //  drupal_set_message(print_r($form_state));
+-    $volume = ($form_state['values']['volume']) ? $form_state['values']['volume'] : 2.5;
+-    $form['volume'] = array(
++//  drupal_set_message(print_r($form_state));
++  $volume = ($form_state['values']['volume']) ? $form_state['values']['volume'] : 2.5;
++  $form['volume'] = array(
+         '#type' => 'select',
+         '#options' => array(
+-            '0,5' => '0,5', 
+-            '1' => '1', 
+-            '1,5' => '1,5', 
+-            '2' => '2', 
+-            '2,5' => '2,5', 
+-            '3' => '3', 
+-            '3,5' => '3,5', 
+-            '4' => '4', 
+-            '4,5' => '4,5', 
+-            '5' => '5', 
+-            '6' => '6', 
+-            '10' => '10', 
+-            '15' => '15', 
++            '0,5' => '0,5',
++            '1' => '1',
++            '1,5' => '1,5',
++            '2' => '2',
++            '2,5' => '2,5',
++            '3' => '3',
++            '3,5' => '3,5',
++            '4' => '4',
++            '4,5' => '4,5',
++            '5' => '5',
++            '6' => '6',
++            '10' => '10',
++            '15' => '15',
+             '40' => '40'),
+         '#default_value' => $volume,
+     );
+-    
+-    // TODO: Надо сделать выбор из списка с возможностью добавления, если в списке нет
+-    $form['evacuator_name'] = array(
++
++  // TODO: Надо сделать выбор из списка с возможностью добавления, если в списке нет
++  $form['evacuator_name'] = array(
+         '#type' => 'textfield',
+         '#title' => '1.1 Введите модель эвакуатора, грузоподъемность',
+         '#size' => 20,
+         '#maxlength' => 20,
+-        '#default_value' => $form_state['values']['evacuator_name'], 
++        '#default_value' => $form_state['values']['evacuator_name'],
+         '#required' => TRUE,
+     );
+ 
+-   $options = (is_array($form_state['values']['options'])) ? $form_state['values']['options'] : array();
+-    $form['options'] = array(
++  $options = (is_array($form_state['values']['options'])) ? $form_state['values']['options'] : array();
++  $form['options'] = array(
+         '#type' => 'checkboxes',
+         //'#title' => 'Отметьте возможности Вашего эвакуатора',
+         '#options' => array(
+@@ -80,81 +105,81 @@ function anket_my_form($form, &$form_sta
+         '#default_value' => $options,
+     );
+ 
+-    $form['price'] = array(
++  $form['price'] = array(
+         '#type' => 'textfield',
+         '#size' => 4,
+         '#maxlength' => 4,
+         '#default_value' => $form_state['values']['price'],
+     );
+-    $form['price1'] = array(
++  $form['price1'] = array(
+         '#type' => 'textfield',
+         '#size' => 4,
+         '#maxlength' => 4,
+         '#default_value' => $form_state['values']['price1'],
+     );
+ 
+-    $form['price2'] = array(
++  $form['price2'] = array(
+         '#type' => 'textfield',
+         '#size' => 4,
+         '#maxlength' => 4,
+         '#default_value' => $form_state['values']['price2'],
+     );
+ 
+-    $form['price3'] = array(
++  $form['price3'] = array(
+         '#type' => 'textfield',
+         '#size' => 4,
+         '#maxlength' => 4,
+         '#default_value' => $form_state['values']['price3'],
+     );
+ 
+-    $form['price4'] = array(
++  $form['price4'] = array(
+         '#type' => 'textfield',
+         '#size' => 4,
+         '#maxlength' => 4,
+         '#default_value' => $form_state['values']['price4'],
+     );
+ 
+-    $form['price5'] = array(
++  $form['price5'] = array(
+         '#type' => 'textfield',
+         '#size' => 4,
+         '#maxlength' => 4,
+         '#default_value' => $form_state['values']['price5'],
+     );
+ 
+-    $form['price6'] = array(
++  $form['price6'] = array(
+         '#type' => 'textfield',
+         '#size' => 4,
+         '#maxlength' => 4,
+         '#default_value' => $form_state['values']['price6'],
+     );
+-   $discount = ($form_state['values']['discount']) ? $form_state['values']['discount'] : 5;
+-    $form['discount'] = array(
++  $discount = ($form_state['values']['discount']) ? $form_state['values']['discount'] : 5;
++  $form['discount'] = array(
+         '#type' => 'select',
+         '#options' => array(
+             '0' => '0',
+-            '3' => '3', 
+-            '4' => '4', 
++            '3' => '3',
++            '4' => '4',
+             '5' => '5',
+-            '6' => '6', 
+-            '7' => '7', 
++            '6' => '6',
++            '7' => '7',
+             '10' => '10',
+-            '11' => '11', 
+-            '12' => '12', 
+-            '15' => '15', 
+-            '20' => '20', 
++            '11' => '11',
++            '12' => '12',
++            '15' => '15',
++            '20' => '20',
+             '25' => '25'
+             ),
+         '#default_value' => $discount,
+     );
+-    
+-    $form['gps_eq'] = array(
++
++  $form['gps_eq'] = array(
+         '#type' => 'textfield',
+         '#default_value' => $form_state['values']['gps_eq'],
+         '#size' => 40,
+         '#maxlength' => 40,
+     );
+-    
+-    $form['e_phone_1'] = array(
++
++  $form['e_phone_1'] = array(
+         '#type' => 'textfield',
+         '#default_value' => $form_state['values']['e_phone_1'],
+         '#size' => 12,
+@@ -162,34 +187,34 @@ function anket_my_form($form, &$form_sta
+       //  '#required' => TRUE,
+     );
+ 
+-    $form['e_phone_2'] = array(
++  $form['e_phone_2'] = array(
+         '#type' => 'textfield',
+         '#default_value' => $form_state['values']['e_phone_2'],
+         '#size' => 12,
+         '#maxlength' => 12,
+     );
+ 
+-    $form['e_phone_3'] = array(
++  $form['e_phone_3'] = array(
+         '#type' => 'textfield',
+         '#default_value' => $form_state['values']['e_phone_3'],
+         '#size' => 12,
+         '#maxlength' => 12,
+-    );    
++    );
+ 
+-    $form['latFld'] = array(
++  $form['latFld'] = array(
+         '#type' => 'hidden',
+         '#title' => '1.7 Местоположение',
+         '#default_value' => $form_state['values']['latFld'],
+         '#required' => TRUE,
+     );
+ 
+-    $form['lngFld'] = array(
++  $form['lngFld'] = array(
+         '#type' => 'hidden',
+         '#default_value' => $form_state['values']['lngFld'],
+     );
+-    
+-    // Личный данные
+-    $form['surname'] = array(
++
++  // Личный данные
++  $form['surname'] = array(
+         '#type' => 'textfield',
+         '#default_value' => $form_state['values']['surname'],
+         '#title' => '2.1 Фамилия, имя, отчество',
+@@ -198,7 +223,7 @@ function anket_my_form($form, &$form_sta
+         '#maxlength' => 30,
+     );
+ 
+-    $form['mail'] = array(
++  $form['mail'] = array(
+         '#type' => 'textfield',
+         '#title' => '2.2 Ваша электронная почта',
+         '#size' => 50,
+@@ -208,7 +233,7 @@ function anket_my_form($form, &$form_sta
+         '#description' => 'Почта необходима на случай, если Вы забудете пароль.',
+     );
+ 
+-    $form['pass'] = array(
++  $form['pass'] = array(
+         '#type' => 'password',
+         '#title' => '2.3 Придумайте пароль для входа в личный кабинет каталога',
+         '#size' => 50,
+@@ -217,7 +242,7 @@ function anket_my_form($form, &$form_sta
+         '#required' => TRUE,
+     );
+ 
+-    $form['pass2'] = array(
++  $form['pass2'] = array(
+         '#type' => 'password',
+         '#title' => '2.4 Повторите пароль',
+         '#size' => 50,
+@@ -225,163 +250,181 @@ function anket_my_form($form, &$form_sta
+         '#default_value' => $form_state['values']['pass2'],
+         '#required' => TRUE,
+     );
+-   //  Данные о компании
+-    $form['company_name'] = array(
++//  Данные о компании
++  $form['company_name'] = array(
+         '#type' => 'textfield',
+         '#size' => 50,
+-        '#maxlength' => 50,        
++        '#maxlength' => 50,
+         '#title' => '3.1 Название Вашей компании',
+         '#default_value' => $form_state['values']['company_name'],
+         '#description' => 'Будет выводиться на странице информации о компании.',
+         '#required' => TRUE,
+     );
+ 
+-    if(isset($form_state['values']['site']))
+-        $site_value = $form_state['values']['site'];
+-    else
+-        $site_value = 'http://';
++  if (isset($form_state['values']['site'])) {
++    $site_value = $form_state['values']['site'];
++  }
++  else {
++    $site_value = 'http://';
++  }
+ 
+-    $form['site'] = array(
++  $form['site'] = array(
+         '#type' => 'textfield',
+         '#size' => 50,
+-        '#maxlength' => 50,        
++        '#maxlength' => 50,
+         '#title' => '3.2 Адрес сайта Вашей компании',
+         '#default_value' => $site_value,
+         '#description' => 'Если у Вашей компании уже есть сайт, укажите его адрес, <br/>чтобы потенциальные клиенты смогли перейти на него.',
+     );
+-    
+-    $form['phone_1'] = array(
++
++  $form['phone_1'] = array(
+         '#type' => 'textfield',
+         '#default_value' => $form_state['values']['phone_1'],
+         '#size' => 12,
+         '#maxlength' => 12,
+     );
+ 
+-    $form['phone_2'] = array(
++  $form['phone_2'] = array(
+         '#type' => 'textfield',
+         '#default_value' => $form_state['values']['phone_2'],
+         '#size' => 12,
+         '#maxlength' => 12,
+     );
+ 
+-    $form['phone_3'] = array(
++  $form['phone_3'] = array(
+         '#type' => 'textfield',
+         '#default_value' => $form_state['values']['phone_3'],
+         '#size' => 12,
+         '#maxlength' => 12,
+     );
+ 
+-    $form['description'] = array(
++  $form['description'] = array(
+         '#type' => 'textarea',
+         '#title' => '3.4 Описание компании',
+         '#default_value' => $form_state['values']['description'],
+     );
+-    
+-    //темизация всей формы в местоде attach_template
+-    $form['#theme'] = 'attach_template';
+-    
+-    $form['submit'] = array(
++
++  //темизация всей формы в местоде attach_template
++  $form['#theme'] = 'attach_template';
++
++  $form['submit'] = array(
+         '#type' => 'submit',
+         '#value' => t('Submit'),
+     );
+-    $form['#redirect'] = 'moj-evakuator/all';
+- 
+-    return $form;
++  $form_state['#redirect'] = 'moj-evakuator/all';
++
++  return $form;
+ }
+ 
++/**
++ * @todo Please document this function.
++ * @see http://drupal.org/node/1354
++ */
+ function anket_my_form_validate($form, &$form_state) {
+ 
+-    $pass  = $form_state['values']['pass'];
+-    $pass2 = $form_state['values']['pass2'];
+-    $e_phone_1 = $form_state['values']['e_phone_1'];
++  $pass  = $form_state['values']['pass'];
++  $pass2 = $form_state['values']['pass2'];
++  $e_phone_1 = $form_state['values']['e_phone_1'];
+ 
+-    if(!$e_phone_1){
+-        form_set_error('e_phone_1', 'Поле 1.6 Телефон водителя эвакуатора обязательно для заполнения!');
+-    }
+-    if(strlen($pass) < 5 ){
+-        form_set_error('pass', 'Длина пароля должна быть больше 4 символов!');
+-    }
++  if (!$e_phone_1) {
++    form_set_error('e_phone_1', 'Поле 1.6 Телефон водителя эвакуатора обязательно для заполнения!');
++  }
++  if (strlen($pass) < 5 ) {
++    form_set_error('pass', 'Длина пароля должна быть больше 4 символов!');
++  }
+ 
+-    if ($pass2 != $pass){
+-        form_set_error('pass1', 'Значения в полях "2.3 Пароль" и "2.4 Повтор пароля" должны совпадать!');
+-    }
++  if ($pass2 != $pass) {
++    form_set_error('pass1', 'Значения в полях "2.3 Пароль" и "2.4 Повтор пароля" должны совпадать!');
++  }
+ 
+-    if(!filter_var($form_state['values']['mail'], FILTER_VALIDATE_EMAIL)){
+-        form_set_error('mail', 'Поле 2.2 содержит неверный адрес электронной почты! Перепроверьте, пожалуйста адрес электронной почты.');
+-    }
+-    
+-    if(user_load(array('mail' => $form_state['values']['mail']))){
+-        form_set_error('mail', 'Пользователь с такой электронной почтой уже зарегистрирован. <a href="/user/password">Забыли пароль?</a>');
+-    }
++  if (!filter_var($form_state['values']['mail'], FILTER_VALIDATE_EMAIL)) {
++    form_set_error('mail', 'Поле 2.2 содержит неверный адрес электронной почты! Перепроверьте, пожалуйста адрес электронной почты.');
++  }
++
++  if (array_shift(user_load_multiple(array(), array('mail' => $form_state['values']['mail'])))) {
++    form_set_error('mail', 'Пользователь с такой электронной почтой уже зарегистрирован. <a href="/user/password">Забыли пароль?</a>');
++  }
+ }
+ 
++/**
++ * @todo Please document this function.
++ * @see http://drupal.org/node/1354
++ */
+ function anket_my_form_submit($form, &$form_state) {
+-    global $user;
+-    $mail = $form['mail']['#value'];
+-    $pass = $form['pass']['#value'];
+-    $new_user = array(
++  global $user;
++  $mail = $form['mail']['#value'];
++  $pass = $form['pass']['#value'];
++  $new_user = array(
+         'status' => 1,
+         'mail'   => $mail,
+         'pass'   => $pass,
+         'name'   => $mail,
+         );
+-    if(!user_load(array('mail' => $mail))){
+-        //Зарегистрировать нового пользователя
+-        $created_user = user_save('', $new_user);
+-        //Авторизовать нового пользователя.
+-        $user = user_load(array('mail' => $mail, 'pass' => trim($pass), 'status' => 1));
+-        $user->password = $pass;
+-        $message .= 'Вы удачно зарегистрированы в нашем каталоге! <br>Выполнен автоматический вход в личный кабинет.<br/>';
+-        db_query("UPDATE {profile_values} SET value = '%s' WHERE fid = 3 AND uid = %d",  $form['surname']['#value'], $user->uid);
+-        //Отпаравить приветственное мыло пользователю
+-        drupal_mail(
+-                'user', 
+-                'register_no_approval_required', 
+-                $mail, 
+-                NULL, 
+-                array('account' => $user), 
++  if (!array_shift(user_load_multiple(array(), array('mail' => $mail)))) {
++    //Зарегистрировать нового пользователя
++    $created_user = user_save('', $new_user);
++    //Авторизовать нового пользователя.
++    $user = array_shift(user_load_multiple(array(), array('mail' => $mail, 'pass' => trim($pass), 'status' => 1)));
++    $user->password = $pass;
++    $message .= 'Вы удачно зарегистрированы в нашем каталоге! <br>Выполнен автоматический вход в личный кабинет.<br/>';
++    // TODO Please review the conversion of this statement to the D7 database API syntax.
++    /* db_query("UPDATE {profile_values} SET value = '%s' WHERE fid = 3 AND uid = %d", $form['surname']['#value'], $user->uid) */
++    db_update('profile_values')
++  ->fields(array(
++      'value' => $form['surname']['#value'],
++    ))
++  ->condition('fid', 3)
++  ->condition('uid', $user->uid)
++  ->execute();
++    //Отпаравить приветственное мыло пользователю
++    drupal_mail(
++                'user',
++                'register_no_approval_required',
++                $mail,
++                NULL,
++                array('account' => $user),
+                 variable_get('site_mail', 'robot@vekev.ru'));
+-        //Создать ноду Компания
+-        $nid = 0;
+-        if($nid = create_company_node($form, $user)){
+-            $message .= 'Данные о Вашей компании удачно добавлены.<br/>';
+-            //Создать ноду Эвакуатор
+-            if(create_evacuator_node($form, $user->uid, $nid)){
+-                $message .= 'Данные о Вашем эвакуаторе удачно добавлены.<br/>';
+-            }
+-        } 
+-        drupal_set_message($message);
++    //Создать ноду Компания
++    $nid = 0;
++    if ($nid = create_company_node($form, $user)) {
++      $message .= 'Данные о Вашей компании удачно добавлены.<br/>';
++      //Создать ноду Эвакуатор
++      if (create_evacuator_node($form, $user->uid, $nid)) {
++        $message .= 'Данные о Вашем эвакуаторе удачно добавлены.<br/>';
++      }
+     }
++    drupal_set_message($message);
++  }
+ }
+ 
+-function create_company_node($form, $user){
+-    $node = new StdClass();
+-    $node->type   = 'company';
+-    $node->status = 1;
+-    $node->uid    = $user->uid;
+-    $node->title  = $form['company_name']['#value'];
+-    $node->body   = $form['description']['#value'];
+-    $node->language = 'ru';
+-    $node->field_site = array(
++function create_company_node($form, $user) {
++  $node = new StdClass();
++  $node->type   = 'company';
++  $node->status = 1;
++  $node->uid    = $user->uid;
++  $node->title  = $form['company_name']['#value'];
++  $node->body   = $form['description']['#value'];
++  $node->language = 'ru';
++  $node->field_site = array(
+         '0' => array('value' => $form['site']['#value'])
+         );
+-    $node->field_company_phone = array(
++  $node->field_company_phone = array(
+         '0' => array('value' => $form['phone_1']['#value']),
+         '1' => array('value' => $form['phone_2']['#value']),
+         '2' => array('value' => $form['phone_3']['#value']),
+         );
+-    node_save($node);
+-    
+-    return $node->nid;
++  node_save($node);
++
++  return $node->nid;
+ }
+ 
+-function create_evacuator_node($form, $uid, $nid){
+-  //  print_r($form); die;
+-    $node = array();
+-    $form_state = array();
+-    $form_state['values'] = array(
++function create_evacuator_node($form, $uid, $nid) {
++//  print_r($form); die;
++  $node = array();
++  $form_state = array();
++  $form_state['values'] = array(
+         'uid' => $uid,
+-        'type'=> 'evacuator',
++        'type' => 'evacuator',
+         'language' => 'ru',
+         'title' => $form['evacuator_name']['#value'],
+         'body' => '',
+@@ -391,35 +434,35 @@ function create_evacuator_node($form, $u
+         'form_id' => 'evacuator_node_form',
+         'pathauto_perform_alias' => 1,
+         );
+-        $form_state['values']['field_volume'][0]['value'] = $form['volume']['#value'];
+-        $form_state['values']['field_company'][0]['nid'] = $nid;
+-        $form_state['values']['field_phone'][0]['value'] = $form['e_phone_1']['#value'];
+-        $form_state['values']['field_phone'][1]['value'] = $form['e_phone_2']['#value'];
+-        $form_state['values']['field_phone'][2]['value'] = $form['e_phone_3']['#value'];
+-        
+-        $form_state['values']['field_price'][0]['value'] = $form['price']['#value'];
+-        $form_state['values']['field_price1'][0]['value'] = $form['price1']['#value'];
+-        $form_state['values']['field_price2'][0]['value'] = $form['price2']['#value'];
+-        $form_state['values']['field_price3'][0]['value'] = $form['price3']['#value'];
+-        $form_state['values']['field_price4'][0]['value'] = $form['price4']['#value'];
+-        $form_state['values']['field_price5'][0]['value'] = $form['price5']['#value'];
+-        $form_state['values']['field_price6'][0]['value'] = $form['price6']['#value'];
+-        
+-        $form_state['values']['field_discount'][0]['value'] = $form['discount']['#value'];
+-        $form_state['values']['field_gps_eq'][0]['value'] = $form['gps_eq']['#value'];
+-        
+-        $form_state['values']['field_options']['value']['1'] = $form['options']['#value'][1];
+-        $form_state['values']['field_options']['value']['2'] = $form['options']['#value'][2];
+-        $form_state['values']['field_options']['value']['3'] = $form['options']['#value'][3];
+-        $form_state['values']['field_options']['value']['4'] = $form['options']['#value'][4];
+-        
+-        $form_state['values']['locations'][0]['locpick']['user_latitude'] = $form['latFld']['#value'];
+-        $form_state['values']['locations'][0]['locpick']['user_longitude'] = $form['lngFld']['#value'];
+-  
+-        module_load_include('inc', 'node', 'node.pages');
+-        $node = (object) NULL;
+-        $node->type = 'evacuator';
+-        drupal_execute('evacuator_node_form', $form_state, $node);
++  $form_state['values']['field_volume'][0]['value'] = $form['volume']['#value'];
++  $form_state['values']['field_company'][0]['nid'] = $nid;
++  $form_state['values']['field_phone'][0]['value'] = $form['e_phone_1']['#value'];
++  $form_state['values']['field_phone'][1]['value'] = $form['e_phone_2']['#value'];
++  $form_state['values']['field_phone'][2]['value'] = $form['e_phone_3']['#value'];
++
++  $form_state['values']['field_price'][0]['value'] = $form['price']['#value'];
++  $form_state['values']['field_price1'][0]['value'] = $form['price1']['#value'];
++  $form_state['values']['field_price2'][0]['value'] = $form['price2']['#value'];
++  $form_state['values']['field_price3'][0]['value'] = $form['price3']['#value'];
++  $form_state['values']['field_price4'][0]['value'] = $form['price4']['#value'];
++  $form_state['values']['field_price5'][0]['value'] = $form['price5']['#value'];
++  $form_state['values']['field_price6'][0]['value'] = $form['price6']['#value'];
++
++  $form_state['values']['field_discount'][0]['value'] = $form['discount']['#value'];
++  $form_state['values']['field_gps_eq'][0]['value'] = $form['gps_eq']['#value'];
++
++  $form_state['values']['field_options']['value']['1'] = $form['options']['#value'][1];
++  $form_state['values']['field_options']['value']['2'] = $form['options']['#value'][2];
++  $form_state['values']['field_options']['value']['3'] = $form['options']['#value'][3];
++  $form_state['values']['field_options']['value']['4'] = $form['options']['#value'][4];
++
++  $form_state['values']['locations'][0]['locpick']['user_latitude'] = $form['latFld']['#value'];
++  $form_state['values']['locations'][0]['locpick']['user_longitude'] = $form['lngFld']['#value'];
++
++  module_load_include('inc', 'node', 'node.pages');
++  $node = (object) NULL;
++  $node->type = 'evacuator';
++  drupal_form_submit('evacuator_node_form', $form_state, $node);
+ }
+ 
+ //function anket_form_alter(&$form, $form_state, $form_id) {
+@@ -442,8 +485,12 @@ function create_evacuator_node($form, $u
+ //  die;
+ //}
+ 
+-function anket_theme(){
+-    return array(
++/**
++ * @todo Please document this function.
++ * @see http://drupal.org/node/1354
++ */
++function anket_theme() {
++  return array(
+         'attach_template' => array(
+            // 'arguments' => array('form' => array()),
+             'variables' => array('form' => array()),
+@@ -453,10 +500,10 @@ function anket_theme(){
+ }
+ 
+ /**
+-* Note the pattern [ module_name ] _preprocess_ [ theme_hook ](&$vars)
+-*/
++ * Note the pattern [ module_name ] _preprocess_ [ theme_hook ](&$vars)
++ */
+ function template_preprocess_attach_template(&$vars) {
+-  $vars['volume'] = drupal_render($vars['form']['volume']); 
++  $vars['volume'] = drupal_render($vars['form']['volume']);
+   $vars['evacuator_name'] = drupal_render($vars['form']['evacuator_name']);
+   $vars['options'] = drupal_render($vars['form']['options']);
+   $vars['price']  = drupal_render($vars['form']['price']);
+@@ -466,13 +513,13 @@ function template_preprocess_attach_temp
+   $vars['price4'] = drupal_render($vars['form']['price4']);
+   $vars['price5'] = drupal_render($vars['form']['price5']);
+   $vars['price6'] = drupal_render($vars['form']['price6']);
+-  
++
+   $vars['discount'] = drupal_render($vars['form']['discount']);
+-  
++
+   $vars['e_phone_1'] = drupal_render($vars['form']['e_phone_1']);
+   $vars['e_phone_2'] = drupal_render($vars['form']['e_phone_2']);
+   $vars['e_phone_3'] = drupal_render($vars['form']['e_phone_3']);
+-  
++
+   $vars['map'] = drupal_render($vars['form']['map']);
+   $vars['surname'] = drupal_render($vars['form']['surname']);
+   $vars['mail'] = drupal_render($vars['form']['mail']);
+@@ -493,4 +540,4 @@ function template_preprocess_attach_temp
+   //$vars[''] = drupal_render($vars['form']['']);
+ }
+ 
+-?>
+\ No newline at end of file
++?>

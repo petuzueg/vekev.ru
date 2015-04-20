@@ -1,0 +1,405 @@
+inside coder_upgrade_convert_return
+while (!empty($nodes)) coder_upgrade_convert_return
+$value ==>
+$items
+inside if ($operand)
+$operand ==>
+$items
+while (!empty($nodes)) coder_upgrade_convert_return
+$return AFTER ==>
+$items = array()
+$value ==>
+array()
+inside if ($operand)
+$operand ==>
+array()
+while (!empty($nodes)) coder_upgrade_convert_return
+$return AFTER ==>
+$items['evacuator/new'] = array(
+  'title' => 'Добавить эвакуатор в каталог VEKEV.RU', 
+  'page callback' => 'anket_form', 
+  'access callback' => 'user_access', 
+  'access arguments' => array('access anket form'),
+  //'access arguments' => array('access content'), 
+  'description' => 'My form', 
+  'type' => MENU_CALLBACK,
+)
+$value ==>
+array(
+  'title' => 'Добавить эвакуатор в каталог VEKEV.RU', 
+  'page callback' => 'anket_form', 
+  'access callback' => 'user_access', 
+  'access arguments' => array('access anket form'),
+  //'access arguments' => array('access content'), 
+  'description' => 'My form', 
+  'type' => MENU_CALLBACK,
+)
+inside if ($operand)
+$operand ==>
+array(
+  'title' => 'Добавить эвакуатор в каталог VEKEV.RU', 
+  'page callback' => 'anket_form', 
+  'access callback' => 'user_access', 
+  'access arguments' => array('access anket form'),
+  //'access arguments' => array('access content'), 
+  'description' => 'My form', 
+  'type' => MENU_CALLBACK,
+)
+inside coder_upgrade_upgrade_regex_info_alter
+inside coder_upgrade_upgrade_regex_alter
+inside coder_upgrade_convert_function_calls
+PGPList
+(
+    [0] => PGPExpression
+        (
+            [operand] => Array
+                (
+                    [type] => 315 (T_CONSTANT_ENCAPSED_STRING)
+                    [value] => 'http://maps.google.com/maps/api/js?sensor=false'
+                )
+
+        )
+
+    [1] => PGPExpression
+        (
+            [operand] => Array
+                (
+                    [type] => 315 (T_CONSTANT_ENCAPSED_STRING)
+                    [value] => 'external'
+                )
+
+        )
+
+)
+
+params
+Array
+(
+    [scope] => JS_DEFAULT
+)
+
+string
+array('scope' => JS_DEFAULT)
+params
+Array
+(
+    [scope] => JS_DEFAULT
+    [type] => 'external'
+)
+
+string
+array('type' => 'external', 'scope' => JS_DEFAULT)
+PGPExpression
+(
+    [operand] => PGPArray
+        (
+            [type] => 360
+            [multiline] => 0
+            [original] => 
+            [preserve] => 
+            [count] => 2
+            [commaCount] => 1
+            [values] => PGPList
+                (
+                    [lparens] => (
+                    [key] => PGPExpression
+                        (
+                            [operand] => Array
+                                (
+                                    [type] => 315
+                                    [value] => 'type'
+                                )
+
+                        )
+
+                    [assign] => =>
+                    [value] => PGPExpression
+                        (
+                            [operand] => Array
+                                (
+                                    [type] => 315
+                                    [value] => 'external'
+                                )
+
+                        )
+
+                    [key] => PGPExpression
+                        (
+                            [operand] => Array
+                                (
+                                    [type] => 315
+                                    [value] => 'scope'
+                                )
+
+                        )
+
+                    [assign] => =>
+                    [value] => PGPExpression
+                        (
+                            [operand] => PGPOperand
+                                (
+                                    [type] => 307
+                                    [value] => JS_DEFAULT
+                                )
+
+                        )
+
+                )
+
+            [debug] => 
+        )
+
+)
+
+PGPList
+(
+    [0] => PGPExpression
+        (
+            [operand] => PGPFunctionCall
+                (
+                    [parent] => PGPNode
+                        (
+                            [type-1] => 602
+                        )
+
+                    [type] => 601
+                    [name] => Array
+                        (
+                            [type] => 307 (T_STRING)
+                            [value] => drupal_get_path
+                        )
+
+                    [noparens] => 0
+                    [parameters] => PGPList
+                        (
+                            [0] => PGPExpression
+                                (
+                                    [operand] => Array
+                                        (
+                                            [type] => 315 (T_CONSTANT_ENCAPSED_STRING)
+                                            [value] => 'module'
+                                        )
+
+                                )
+
+                            [1] => PGPExpression
+                                (
+                                    [operand] => Array
+                                        (
+                                            [type] => 315 (T_CONSTANT_ENCAPSED_STRING)
+                                            [value] => 'anket'
+                                        )
+
+                                )
+
+                        )
+
+                    [parentExpression] => PGPExpression
+                        (
+                            [type-1] => 
+                        )
+
+                    [debug] => 
+                )
+
+            [operator] => .
+            [operand] => Array
+                (
+                    [type] => 315 (T_CONSTANT_ENCAPSED_STRING)
+                    [value] => '/js/map.js'
+                )
+
+        )
+
+    [1] => PGPExpression
+        (
+            [operand] => Array
+                (
+                    [type] => 315 (T_CONSTANT_ENCAPSED_STRING)
+                    [value] => 'file'
+                )
+
+        )
+
+)
+
+params
+Array
+(
+    [scope] => JS_DEFAULT
+)
+
+string
+array('scope' => JS_DEFAULT)
+params
+Array
+(
+    [scope] => JS_DEFAULT
+    [type] => 'file'
+)
+
+string
+array('type' => 'file', 'scope' => JS_DEFAULT)
+PGPExpression
+(
+    [operand] => PGPArray
+        (
+            [type] => 360
+            [multiline] => 0
+            [original] => 
+            [preserve] => 
+            [count] => 2
+            [commaCount] => 1
+            [values] => PGPList
+                (
+                    [lparens] => (
+                    [key] => PGPExpression
+                        (
+                            [operand] => Array
+                                (
+                                    [type] => 315
+                                    [value] => 'type'
+                                )
+
+                        )
+
+                    [assign] => =>
+                    [value] => PGPExpression
+                        (
+                            [operand] => Array
+                                (
+                                    [type] => 315
+                                    [value] => 'file'
+                                )
+
+                        )
+
+                    [key] => PGPExpression
+                        (
+                            [operand] => Array
+                                (
+                                    [type] => 315
+                                    [value] => 'scope'
+                                )
+
+                        )
+
+                    [assign] => =>
+                    [value] => PGPExpression
+                        (
+                            [operand] => PGPOperand
+                                (
+                                    [type] => 307
+                                    [value] => JS_DEFAULT
+                                )
+
+                        )
+
+                )
+
+            [debug] => 
+        )
+
+)
+
+$values ==>
+Array
+(
+    [0] => $form['surname']['#value']
+    [1] => $user->uid
+)
+coder_upgrade_parse_update_query_string
+$matches ==>
+Array
+(
+    [0] => UPDATE {profile_values} SET value = '%s' WHERE fid = 3 AND uid = %d
+    [1] => profile_values
+    [2] => value = '%s'
+    [3] => fid = 3 AND uid = %d
+)
+$fields ==>
+Array
+(
+    [0] => value = '%s'
+)
+$replacement_count ==>
+2
+$new ==>
+Array
+(
+    [0] => db_update('profile_values')
+    [1] => 	->fields(array(
+    [2] => 		'value' => $form['surname']['#value'],
+    [3] => 	))
+    [4] => 	->condition('fid', 3)
+	->condition('uid', $user->uid)
+    [5] => 	->execute();
+)
+coder_upgrade_insert_dbtng_statement
+inside coder_upgrade_convert_functions
+name = anket_init
+hook = init
+inside coder_upgrade_upgrade_hook_alter
+anket_init
+name = anket_perm
+hook = perm
+inside coder_upgrade_convert_return
+while (!empty($nodes)) coder_upgrade_convert_return
+$value ==>
+array('access anket form')
+inside if ($operand)
+$operand ==>
+array('access anket form')
+inside coder_upgrade_callback_perm
+inside coder_upgrade_upgrade_hook_alter
+anket_permission
+name = anket_menu
+hook = menu
+inside coder_upgrade_upgrade_hook_alter
+anket_menu
+name = anket_form
+hook = form
+inside coder_upgrade_upgrade_hook_alter
+anket_form
+name = anket_my_form
+hook = my_form
+inside coder_upgrade_upgrade_hook_alter
+anket_my_form
+name = anket_my_form_validate
+hook = my_form_validate
+inside coder_upgrade_upgrade_hook_alter
+anket_my_form_validate
+name = anket_my_form_submit
+hook = my_form_submit
+inside coder_upgrade_upgrade_hook_alter
+anket_my_form_submit
+name = create_company_node
+name = create_evacuator_node
+name = anket_theme
+hook = theme
+inside coder_upgrade_convert_return
+while (!empty($nodes)) coder_upgrade_convert_return
+$value ==>
+array(
+        'attach_template' => array(
+           // 'arguments' => array('form' => array()),
+            'variables' => array('form' => array()),
+            'template'  => 'anket',
+            ),
+        )
+inside if ($operand)
+$operand ==>
+array(
+        'attach_template' => array(
+           // 'arguments' => array('form' => array()),
+            'variables' => array('form' => array()),
+            'template'  => 'anket',
+            ),
+        )
+inside coder_upgrade_callback_theme
+inside coder_upgrade_callback_theme
+inside coder_upgrade_callback_theme
+inside coder_upgrade_callback_theme
+inside coder_upgrade_upgrade_hook_alter
+anket_theme
+name = template_preprocess_attach_template

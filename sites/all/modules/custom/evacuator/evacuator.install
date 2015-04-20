@@ -1,0 +1,167 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function evacuator_install() {
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function evacuator_uninstall() {
+
+}
+/*
+ * hook_field_schema()
+ */
+function evacuator_field_schema($field) {
+    return array(
+        'columns' => array(
+            'eid' => array(
+                'description' => 'Autoincrement field',
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+
+            'company' => array(
+                'description' => 'ID компании',
+                'type' => 'int',
+                'unsigned' => FALSE,
+                'not null' => FALSE,
+            ),
+            
+            'volume' => array(
+                'description' => 'Грузоподъемность',
+                'type' => 'numeric',
+                'precision' => 3,
+                'scale' => 1,
+                'default' => 0,
+                'unsigned' => FALSE,
+                'not null' => TRUE,
+             ),
+            
+            'price1' => array(
+                'description' => 'Автомобили до 1 300 кг.',
+                'type' => 'int',
+                'unsigned' => FALSE,
+                'not null' => FALSE,
+                'default' => NULL
+            ),
+            
+            'price2' => array(
+                'description' => 'Иномарки до 1 500 кг.',
+                'type' => 'int',
+                'unsigned' => FALSE,
+                'not null' => FALSE,
+                'default' => NULL
+            ),
+            
+            'price3' => array(
+                'description' => 'Иномарки более 1 500 кг.',
+                'type' => 'int',
+                'unsigned' => FALSE,
+                'not null' => FALSE,
+                'default' => NULL
+            ),
+            
+            'price4' => array(
+                'description' => 'Джипы и микроавтобусы',
+                'type' => 'int',
+                'unsigned' => FALSE,
+                'not null' => FALSE,
+                'default' => NULL
+            ),
+            
+            'price5' => array(
+                'description' => 'Простой за 1 час',
+                'type' => 'int',
+                'unsigned' => FALSE,
+                'not null' => FALSE,
+                'default' => NULL
+            ),
+            
+            'price6' => array(
+                'description' => 'Переадресация эвакуации',
+                'type' => 'int',
+                'unsigned' => FALSE,
+                'not null' => FALSE,
+                'default' => NULL
+            ),
+            
+            'price7' => array(
+                'description' => 'Вызов без эвакуации',
+                'type' => 'int',
+                'unsigned' => FALSE,
+                'not null' => FALSE,
+                'default' => NULL
+            ),
+            
+            'discount' => array(
+                'description' => 'Скидка',
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => FALSE,
+                'default' => NULL
+            ),
+            
+            'gps_eq' => array(
+                'description' => 'Навигационное оборудование',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => FALSE,
+            ),
+            
+            'phone1' => array(
+                'description' => 'Телефон 1',
+                'type' => 'varchar',
+                'length' => 12,
+                'not null' => FALSE,
+            ),
+            
+            'phone2' => array(
+                'description' => 'Телефон 2',
+                'type' => 'varchar',
+                'length' => 12,
+                'not null' => FALSE,
+            ),
+            
+            'phone3' => array(
+                'description' => 'Телефон 3',
+                'type' => 'varchar',
+                'length' => 12,
+                'not null' => FALSE,
+            ),
+            
+            'street' => array(
+                'description' => 'Street address',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => FALSE,
+            ),
+            'latitude' => array(
+                'description' => 'Latitude',
+                'type' => 'numeric',
+                'precision' => 10,
+                'scale' => 6,
+                'default' => 0.0,
+                'unsigned' => FALSE,
+                'not null' => TRUE,
+            ),
+            'longitude' => array(
+                'description' => 'Longitude',
+                'type' => 'numeric',
+                'precision' => 10,
+                'scale' => 6,
+                'default' => 0.0,
+                'unsigned' => FALSE,
+                'not null' => TRUE,
+            ),
+        ),
+        'indexes' => array(
+            'eid' => array('eid'),
+        ),
+    );
+}

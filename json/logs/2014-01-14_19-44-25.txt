@@ -1,0 +1,504 @@
+USER_EMAIL = N/A
+USER_COMMENT = 
+SETTINGS_GLOBAL = 
+DEVICE_FEATURES = android.hardware.wifi
+android.hardware.location.network
+android.hardware.location
+android.hardware.sensor.gyroscope
+android.hardware.screen.landscape
+android.hardware.screen.portrait
+android.hardware.usb.accessory
+android.hardware.bluetooth
+android.hardware.touchscreen.multitouch.distinct
+android.hardware.microphone
+android.hardware.sensor.light
+android.hardware.camera.autofocus
+android.software.live_wallpaper
+android.hardware.camera.flash
+android.hardware.telephony
+android.software.sip
+com.htc.lockscreen.fusion
+android.hardware.touchscreen.multitouch
+android.hardware.sensor.compass
+android.hardware.faketouch
+android.hardware.camera
+com.htc.sunny2
+com.htc.android.rosie.widget
+android.software.sip.voip
+android.hardware.sensor.proximity
+com.cisco.anyconnect.permissions.patch.htc
+android.hardware.location.gps
+android.hardware.telephony.gsm
+android.hardware.camera.front
+android.hardware.touchscreen
+android.hardware.sensor.accelerometer
+glEsVersion = 2.0
+
+PHONE_MODEL = HTC Sensation XE with Beats Audio Z715e
+SETTINGS_SECURE = ACCESSIBILITY_SCRIPT_INJECTION=0
+ACCESSIBILITY_SPEAK_PASSWORD=0
+ACCESSIBILITY_WEB_CONTENT_KEY_BINDINGS=0x13=0x01000100; 0x14=0x01010100; 0x15=0x02000001; 0x16=0x02010001; 0x200000013=0x02000601; 0x200000014=0x02010601; 0x200000015=0x03020101; 0x200000016=0x03010201; 0x200000023=0x02000301; 0x200000024=0x02010301; 0x200000037=0x03070201; 0x200000038=0x03000701:0x03010701:0x03020701;
+ADB_ENABLED=0
+ALLOWED_GEOLOCATION_ORIGINS=
+ALLOW_MOCK_LOCATION=0
+ANDROID_ID=fc70c3aa840eb45d
+ANR_SHOW_BACKGROUND=1
+ASSISTED_GPS_ENABLED=1
+BACKUP_ENABLED=1
+BACKUP_PROVISIONED=1
+BACKUP_TRANSPORT=com.google.android.backup/.BackupTransportService
+BLUETOOTH_ON=0
+CDMA_CELL_BROADCAST_SMS=1
+CFU_QUERY_WHEN_CAMPON_MESSAGE=1
+DATA_ROAMING=0
+DATA_ROAMING_ALLOWED=domestic
+DATA_ROAMING_GUARD=0
+DATA_ROAMING_GUARD_ALLOWED=domestic,international
+DATA_ROAMING_GUARD_BLOCKED=
+DEFAULT_INPUT_METHOD=net.cdeguet.smartkeyboardtrial/.SmartKeyboard
+DEFAULT_INSTALL_LOCATION=0
+DEVICE_PROVISIONED=1
+ENABLED_INPUT_METHODS=com.google.android.voicesearch/.ime.VoiceInputMethodService;-1365315662:com.drbrain.android.vietnameseime/.VietnameseIME:com.jimmysoftware.inputmethod.kbd2/.LatinIME:com.htc.android.htcime/.HTCIMEService:net.cdeguet.smartkeyboardtrial/.SmartKeyboard
+ENABLE_HTC_FASTBOOT=1
+GPSONE_ALLOWED=1
+HTC_ERROR_REPORT_AUTO_SEND=0
+HTC_ERROR_REPORT_PREFER_NETWORK=1
+HTC_ERROR_REPORT_SETTING=1
+HTC_LOCATE_ALLOWED=1
+HTC_MESSAGE_NOTIFICATION_PREVIEW=1
+HTC_NEW_MESSAGE_NOTIFICATION=1
+HTC_PHONE_NOTIFICATION_PREVIEW=1
+HTC_SPEAK_ANNOUNCE=0
+INCALL_POWER_BUTTON_BEHAVIOR=2
+INPUT_METHODS_SUBTYPE_HISTORY=com.htc.android.htcime/.HTCIMEService;-1:net.cdeguet.smartkeyboardtrial/.SmartKeyboard;-1:com.jimmysoftware.inputmethod.kbd2/.LatinIME;-1:com.drbrain.android.vietnameseime/.VietnameseIME;-1
+INSTALL_NON_MARKET_APPS=1
+INTEGRATE_GOOGLE_NAVIGATION=1
+LAST_SETUP_SHOWN=eclair_1
+LOCATION_PROVIDERS_ALLOWED=network,gps
+LOCK_PATTERN_ENABLED=0
+LOCK_PATTERN_TACTILE_FEEDBACK_ENABLED=0
+LOCK_PATTERN_VISIBLE=0
+LONG_PRESS_TIMEOUT=500
+MOBILE_DATA=1
+MOUNT_PLAY_NOTIFICATION_SND=1
+MOUNT_UMS_AUTOSTART=0
+MOUNT_UMS_NOTIFY_ENABLED=1
+MOUNT_UMS_PROMPT=1
+NETWORK_PREFERENCE=18
+PREFERRED_CDMA_SUBSCRIPTION=1
+PREFERRED_NETWORK_MODE=0
+ROAMING_SOUND_ON=1
+SELECTED_INPUT_METHOD_SUBTYPE=-1
+SELECTED_SPELL_CHECKER=com.htc.android.htcime/.spellcheck.HTCSpellCheckerService
+SELECTED_SPELL_CHECKER_SUBTYPE=0
+SELECT_RESOLUTION_TYPE=0
+SEND_ACTION_APP_ERROR=1
+SEND_HTC_APPLICATION_LOG=1
+SEND_HTC_ERROR_REPORT=1
+SET_INSTALL_LOCATION=0
+SMS_ROAMING_GUARD_ALLOWED=international
+THROTTLE_RESET_DAY=18
+TOUCH_EXPLORATION_ENABLED=0
+USB_MASS_STORAGE_ENABLED=1
+USER_PROFILE_PRIVACY_VERSION=1.1
+VOICE_RECOGNITION_SERVICE=com.google.android.voicesearch/.GoogleRecognitionService
+VOICE_ROAMING_ALLOWED=domestic
+VOICE_ROAMING_BLOCKED=
+VOICE_ROAMING_GUARD_ALLOWED=domestic,international
+VOICE_ROAMING_GUARD_BLOCKED=
+WEB_AUTOFILL_QUERY_URL=http://android.clients.google.com/proxy/webautofill
+WIFI_AUTO_IP_ON=1
+WIFI_COUNTRY_CODE=ru
+WIFI_NETWORKS_AVAILABLE_NOTIFICATION_ON=1
+WIFI_ON=0
+WIFI_PWR_ACTIVE_MODE=1
+
+INSTALLATION_ID = 60c5138c-47f1-4677-95fd-2941fb09e23d
+SETTINGS_SYSTEM = ACCELEROMETER_ROTATION=1
+AGPS_ENABLED=0
+AIRPLANE_MODE_ON=0
+AIRPLANE_MODE_RADIOS=cell,bluetooth,wifi,nfc,wimax
+AIRPLANE_MODE_TOGGLEABLE_RADIOS=wifi,nfc
+ALARM_ALERT=content://media/internal/audio/media/229
+AUTO_APPLY_UPDATE=1
+AUTO_TIME=1
+AUTO_TIME_ZONE=1
+AUTO_UPDATE_BY_LOC=1
+BE_POLITE=1
+BLUETOOTH_FTP_SETTINGS=0
+CALENDAR_START_WEEKDAY=2
+CALL_AUTO_RETRY=0
+CAR_DOCK_SOUND=/system/media/audio/ui/Dock.ogg
+CAR_UNDOCK_SOUND=/system/media/audio/ui/Undock.ogg
+CHARM_INDICATOR_SUPPORTED=0
+CHARM_MESSAGE_NOTIFICATION=1
+CHARM_MESSAGE_RECEIVED_NOTIFICATION=1
+CHARM_PHONE_NOTIFICATION=1
+CHARM_VOICE_MAIL_NOTIFICATION=1
+COMPASS_WARNING=1
+CUSTOM_ORIENTATION=-1
+DATA_ROAMING_ALLOWED=domestic
+DATA_ROAMING_GUARD_ALLOWED=domestic,international
+DATA_ROAMING_GUARD_BLOCKED=
+DATE_FORMAT=EE, d MMM yyyy
+DATE_FORMAT_SHORT=EE, d MMM
+DESK_DOCK_SOUND=/system/media/audio/ui/Dock.ogg
+DESK_UNDOCK_SOUND=/system/media/audio/ui/Undock.ogg
+DIM_SCREEN=1
+DM_SUPL_IAPID=ap0004
+DM_SUPL_OPTIONAL_APN=CMNET
+DM_SUPL_PREFERRED_APN=CMWAP
+DM_SUPL_SERVER_IP=supl.google.com
+DM_SUPL_SERVER_NAME=China Mobile AGPS server
+DM_SUPL_SERVER_PORT=7626
+DOCK_HOTSPOT_ON=0
+DOCK_SOUNDS_ENABLED=0
+DSA_PROXY_URL=144.226.247.31:80
+DSA_SERVER_URL=https://dsa.spcsdns.net:443/dsa/
+DTMF_TONE_TYPE_WHEN_DIALING=0
+DTMF_TONE_WHEN_DIALING=0
+EMERGENCY_TONE=1
+FLIP_TO_SPEAKER=1
+FOTA_PERIODIC_CHECKIN=1
+HAPTIC_FEEDBACK_ENABLED=1
+HAPTIC_FEEDBACK_THEME=content://com.immersion.android.haptics.defaulttheme
+HEARING_AID=0
+HOME_DIALING_ROAMING_STATE=0
+HOTSPOT_BLACK_LIST=
+HOTSPOT_CHANNEL=0
+HOTSPOT_CONNECTION_ARRAY=8
+HOTSPOT_DHCP_MAX_CONNECTION=5
+HOTSPOT_DHCP_ON=1
+HOTSPOT_DHCP_STARTING_IP=192.168.1.10
+HOTSPOT_HIDDEN=0
+HOTSPOT_IP_ADDRESS=192.168.1.1
+HOTSPOT_MACFILTER_ON=0
+HOTSPOT_MAX_CONNECTION=5
+HOTSPOT_ON=0
+HOTSPOT_PASSWORD=test_test
+HOTSPOT_SECURITY_TYPE=wpa2-psk
+HOTSPOT_SLEEP_POLICY=1
+HOTSPOT_SSID=petuHTC
+HOTSPOT_SUBNET_MASK=255.255.255.0
+HOTSPOT_WHITE_LIST=
+HTCSPEAK_DEFALUT_LANG=en_US
+HTC_3D_HOME_SCREEN=0
+HTC_APPLICATION_AUTOMATIC_STARTUP=1
+HTC_APPLICATION_NOTIFICATION=10
+INACTIVITY_TIME=0
+KEY_NOTIFY_TONE_ID=0
+KEY_NOTIFY_TONE_NAME=
+KEY_RING_TONE_DEF_PATH=/system/media/haptic/ringtones
+KEY_RING_TONE_ID=0
+KEY_RING_TONE_NAME=
+LOCKSCREEN_SOUNDS_ENABLED=0
+LOCK_SOUND=/system/media/audio/ui/Lock.ogg
+LOW_BATTERY_SOUND=/system/media/audio/ui/LowBattery.ogg
+MEDIA_BUTTON_RECEIVER=com.htc.fm/com.htc.fm.MediaButtonIntentReceiver
+MODE_RINGER=2
+MODE_RINGER_STREAMS_AFFECTED=166
+MUTE_STREAMS_AFFECTED=46
+MVNO_OPERATOR=MTS
+NETWORK_SELECTION=0
+NEXT_ALARM_FORMATTED=
+NOTIFICATION_LIGHT_PULSE=1
+NOTIFICATION_SOUND=content://media/internal/audio/media/261
+POCKET_MODE=1
+POINTER_LOCATION=0
+POINTER_SPEED=6
+POWER_SAVE_3G=0
+POWER_SOUNDS_ENABLED=1
+RINGTONE=content://media/external/audio/media/1251
+SCREEN_BRIGHTNESS=255
+SCREEN_BRIGHTNESS_MODE=1
+SCREEN_OFF_TIMEOUT=45000
+SETTING_ROAMING_RINGTONE=1
+SETTING_SD_CARD_NOTIFICATIONS=0
+SETUP_WIZARD_HAS_RUN=1
+SHOW_PROCESSES=0
+SHOW_TOUCHES=0
+SILENT_MODE=0
+SMS_ROAMING_GUARD_ALLOWED=international
+SOUND_EFFECTS_ENABLED=0
+STAY_ON_WHILE_PLUGGED_IN=0
+TIME_12_24=24
+TRANSITION_ANIMATION_SCALE=1.0
+TTY_MODE=0
+UNLOCK_SOUND=/system/media/audio/ui/Unlock.ogg
+VIBRATE_IN_SILENT=1
+VIBRATE_ON=5
+VOICE_ROAMING_ALLOWED=domestic
+VOICE_ROAMING_BLOCKED=
+VOICE_ROAMING_GUARD_ALLOWED=domestic,international
+VOICE_ROAMING_GUARD_BLOCKED=
+VOLUME_ALARM=6
+VOLUME_BLUETOOTH_SCO=15
+VOLUME_MUSIC=15
+VOLUME_NOTIFICATION=5
+VOLUME_RING=7
+VOLUME_SYSTEM=7
+VOLUME_VOICE=5
+WEATHER_WALLPAPER_ANIMATION_ALLOWED=0
+WIFI_SLEEP_POLICY=2
+WINDOW_ANIMATION_SCALE=1.0
+
+SHARED_PREFERENCES = default.acra.lastVersionNr=4
+
+
+IS_SILENT = 
+ANDROID_VERSION = 4.0.3
+PACKAGE_NAME = ru.vekev.evakuator
+APP_VERSION_CODE = 4
+CRASH_CONFIGURATION = compatScreenHeightDp=545
+compatScreenWidthDp=320
+compatSmallestScreenWidthDp=320
+fontScale=1.0
+fontsize=3
+hardKeyboardHidden=HARDKEYBOARDHIDDEN_YES
+keyboard=KEYBOARD_NOKEYS
+keyboardHidden=KEYBOARDHIDDEN_NO
+locale=ru_RU
+mcc=250
+mnc=1
+navigation=NAVIGATION_NONAV
+navigationHidden=NAVIGATIONHIDDEN_YES
+orientation=ORIENTATION_PORTRAIT
+screenHeightDp=614
+screenLayout=SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_YES
+screenWidthDp=360
+seq=102
+skin=default
+smallestScreenWidthDp=360
+textLayoutDirection=0
+touchscreen=TOUCHSCREEN_FINGER
+uiMode=UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO
+userSetLocale=false
+
+USER_CRASH_DATE = 2014-01-14T19:44:18.000+04:00
+DUMPSYS_MEMINFO = Permission Denial: can't dump meminfo from from pid=31885, uid=10157 without permission android.permission.DUMP
+
+BUILD = BOARD=pyramid
+BOOTLOADER=1.29.0000
+BRAND=htc_asia_wwe
+CPU_ABI=armeabi-v7a
+CPU_ABI2=armeabi
+DEVICE=pyramid
+DISPLAY=IML74K
+FINGERPRINT=htc_asia_wwe/htc_pyramid/pyramid:4.0.3/IML74K/405135.151:user/release-keys
+HARDWARE=pyramid
+HOST=ABM009
+ID=IML74K
+IS_DEBUGGABLE=false
+MANUFACTURER=HTC
+MODEL=HTC Sensation XE with Beats Audio Z715e
+PRODUCT=htc_pyramid
+RADIO=unknown
+SERIAL=HT27YV805904
+TAGS=release-keys
+TIME=1348719690000
+TYPE=user
+UNKNOWN=unknown
+USER=unknown
+VERSION.CODENAME=REL
+VERSION.INCREMENTAL=405135.151
+VERSION.RELEASE=4.0.3
+VERSION.RESOURCES_SDK_INT=15
+VERSION.SDK=15
+VERSION.SDK_INT=15
+
+STACK_TRACE = java.lang.ExceptionInInitializerError
+	at ru.vekev.evakuator.ServerManager.request(ServerManager.java:401)
+	at ru.vekev.evakuator.ServerManager.authorization(ServerManager.java:221)
+	at ru.vekev.evakuator.LocalService.onConnectionStatusChange(LocalService.java:230)
+	at ru.vekev.evakuator.LocalService.timerTick(LocalService.java:219)
+	at ru.vekev.evakuator.LocalService.access$000(LocalService.java:19)
+	at ru.vekev.evakuator.LocalService$1.run(LocalService.java:200)
+	at java.util.Timer$TimerImpl.run(Timer.java:284)
+Caused by: java.lang.RuntimeException: Can't create handler inside thread that has not called Looper.prepare()
+	at android.os.Handler.<init>(Handler.java:121)
+	at android.os.AsyncTask$InternalHandler.<init>(AsyncTask.java:607)
+	at android.os.AsyncTask$InternalHandler.<init>(AsyncTask.java:607)
+	at android.os.AsyncTask.<clinit>(AsyncTask.java:190)
+	... 7 more
+java.lang.RuntimeException: Can't create handler inside thread that has not called Looper.prepare()
+	at android.os.Handler.<init>(Handler.java:121)
+	at android.os.AsyncTask$InternalHandler.<init>(AsyncTask.java:607)
+	at android.os.AsyncTask$InternalHandler.<init>(AsyncTask.java:607)
+	at android.os.AsyncTask.<clinit>(AsyncTask.java:190)
+	at ru.vekev.evakuator.ServerManager.request(ServerManager.java:401)
+	at ru.vekev.evakuator.ServerManager.authorization(ServerManager.java:221)
+	at ru.vekev.evakuator.LocalService.onConnectionStatusChange(LocalService.java:230)
+	at ru.vekev.evakuator.LocalService.timerTick(LocalService.java:219)
+	at ru.vekev.evakuator.LocalService.access$000(LocalService.java:19)
+	at ru.vekev.evakuator.LocalService$1.run(LocalService.java:200)
+	at java.util.Timer$TimerImpl.run(Timer.java:284)
+
+PRODUCT = htc_pyramid
+DISPLAY = 0.height=960
+0.orientation=0
+0.pixelFormat=1
+0.getRealSize=[540,960]
+0.rectSize=[0,0,540,960]
+0.refreshRate=60.0
+0.rotation=ROTATION_0
+0.getSize=[540,960]
+0.width=540
+
+LOGCAT = 01-14 19:44:00.256 D/PowerManagerService(  235): runHtcPowerSaverCheck ======================================
+01-14 19:44:00.266 D/HtcPowerSaver(  235): notifyUser: Unknown Status
+01-14 19:44:00.266 I/HtcPowerSaver(  235): currentStatus=8000, currentLevel=64, enableLevel=20, enable=false, popDialog=false, statusChangeTo=-1
+01-14 19:44:00.266 I/HtcPowerSaver(  235): << updateStatus
+01-14 19:44:00.266 D/PowerUI (  307): plugged = false, health = 2, mBatteryLevel = 64, mPluggedBatteryLevel = 64, mLowBatteryWarningLevel2 = 25, mshowLowChargingWarning2 = true
+01-14 19:44:03.849 I/SGSTouchscreen(28925): Setting touchscreen value: 7028
+01-14 19:44:04.860 I/SGSTouchscreen(28925): Setting touchscreen value: 8001
+01-14 19:44:04.900 I/SGSTouchscreen(28925): Setting touchscreen value: 11001
+01-14 19:44:04.930 D/PhoneStatusBarPolicy(  307): Network Type: 3
+01-14 19:44:04.940 I/SGSTouchscreen(28925): Setting touchscreen value: 13099
+01-14 19:44:04.970 I/SGSTouchscreen(28925): Setting touchscreen value: 14005
+01-14 19:44:11.337 D/PhoneStatusBarPolicy(  307): Network Type: 3
+01-14 19:44:18.413 I/ActivityManager(  235): START intent from pid 381
+01-14 19:44:18.464 D/CAT     (  422): CatService: Return current sInstance
+01-14 19:44:18.484 D/ViewRootImpl(  235): @@@- disable SystemServer HW acceleration
+01-14 19:44:18.514 I/ActivityManager(  235): Start proc ru.vekev.evakuator for activity ru.vekev.evakuator/.MainActivity: pid=31865 uid=10157 gids={3003, 1007}
+01-14 19:44:18.524 D/memalloc(  112): /dev/pmem: Allocated buffer base:0x42248000 size:2088960 offset:0 fd:38
+01-14 19:44:18.524 D/memalloc(  235): /dev/pmem: Mapped buffer base:0x5758d000 size:2088960 offset:0 fd:305
+01-14 19:44:18.554 D/SensorManager(  235): [SensorManager] registerListener: delay = 200000
+01-14 19:44:18.554 D/SensorService(  235): enable: get sensor name = MPL accel
+01-14 19:44:18.554 D/Sensors (  235): handle : 4 en: 1, v010.0 - Try to resolve lock issue
+01-14 19:44:18.554 D/Sensors (  235): lock_status = 2
+01-14 19:44:18.554 D/Sensors (  235): Andy: MPLSensor::enable: lock1
+01-14 19:44:18.554 D/Sensors (  235): mEnabled = 0x10
+01-14 19:44:18.554 D/Sensors (  235): set_power_states++: enabled_sensors: 16 dmp_started: 0
+01-14 19:44:18.554 D/Sensors (  235): Before if statment: cs:0 rs:1 en_ped:0 da_ped:0 en_g:0 da_g:0
+01-14 19:44:18.554 D/Sensors (  235): STOP timerirq_1
+01-14 19:44:18.574 D/Sensors (  235): Starting DMP
+01-14 19:44:18.574 D/MP-Decision(  699): UP Nw:2.700000 Tw:180 rq:3.700000 seq:198
+01-14 19:44:18.594 I/        (  235): mpu3050_resume: Resuming to 0070
+01-14 19:44:18.594 D/Sensors (  235): Exit: Starting DMP
+01-14 19:44:18.594 D/Sensors (  235): set_power_states--
+01-14 19:44:18.594 D/Sensors (  235): Andy: MPLSensor::enable: unlock1
+01-14 19:44:18.594 D/Sensors (  235): MPLSensor::enable--1
+01-14 19:44:18.594 D/SensorService(  235): SensorDevice::activate--: handle = 0x4, enabled = 0x1
+01-14 19:44:18.594 D/SensorService(  235): pid=235, uid=1000
+01-14 19:44:18.594 D/OpenGLRenderer(  381): Flushing caches (mode 1)
+01-14 19:44:18.594 D/ConnectivityService(  235): onUidRulesChanged(uid=10157, uidRules=0)
+01-14 19:44:18.604 W/dalvikvm(  381): disableGcForExternalAlloc: false
+01-14 19:44:18.604 V/WindowManager(  235): Starting animation in AppWindowToken{41443690 token=Token{41398300 ActivityRecord{40e42e40 com.htc.launcher/.Launcher}}} @ 1347002577
+01-14 19:44:18.604 V/WindowManager(  235): Finished animation in AppWindowToken{41443690 token=Token{41398300 ActivityRecord{40e42e40 com.htc.launcher/.Launcher}}} @ 1347002577
+01-14 19:44:18.604 V/WindowManager(  235): Starting animation in AppWindowToken{424d45e0 token=Token{419f80f8 ActivityRecord{40e5ba90 ru.vekev.evakuator/.MainActivity}}} @ 1347002577
+01-14 19:44:18.614 D/memalloc(  381): /dev/pmem: Unmapping buffer base:0x57d97000 size:18468864 offset:16379904
+01-14 19:44:18.614 D/memalloc(  381): /dev/pmem: Unmapping buffer base:0x565bd000 size:4177920 offset:2088960
+01-14 19:44:18.614 D/memalloc(  381): /dev/pmem: Unmapping buffer base:0x5a07c000 size:6266880 offset:4177920
+01-14 19:44:18.614 D/memalloc(  112): /dev/pmem: Freeing buffer base:0x431e7000 size:2088960 offset:16379904 fd:44
+01-14 19:44:18.614 D/memalloc(  112): /dev/pmem: Freeing buffer base:0x42446000 size:2088960 offset:2088960 fd:68
+01-14 19:44:18.624 D/memalloc(  112): /dev/pmem: Freeing buffer base:0x42644000 size:2088960 offset:4177920 fd:71
+01-14 19:44:18.624 D/OpenGLRenderer(  381): Flushing caches (mode 0)
+01-14 19:44:18.624 D/memalloc(  381): /dev/pmem: Unmapping buffer base:0x5b089000 size:20557824 offset:18468864
+01-14 19:44:18.624 D/memalloc(  381): /dev/pmem: Unmapping buffer base:0x5c424000 size:8355840 offset:6266880
+01-14 19:44:18.624 D/memalloc(  112): /dev/pmem: Freeing buffer base:0x42842000 size:2088960 offset:6266880 fd:74
+01-14 19:44:18.644 D/memalloc(  112): /dev/pmem: Freeing buffer base:0x433e5000 size:2088960 offset:18468864 fd:59
+01-14 19:44:18.644 D/ACRA    (31865): ACRA is enabled for ru.vekev.evakuator, intializing...
+01-14 19:44:18.664 D/ACRA    (31865): Looking for error files in /data/data/ru.vekev.evakuator/files
+01-14 19:44:18.734 E/TEST    (31865): [Main Activity] On create
+01-14 19:44:18.734 E/TEST    (31865): [Main Activity] On Start
+01-14 19:44:18.744 E/TEST    (31865): [Service] Create
+01-14 19:44:18.784 E/TEST    (31865): [Service] Timer tick
+01-14 19:44:18.794 E/TEST    (31865): [Server] Send: {"a1":"79dc449c-6631-11e3-9a54-984be17222ba","a3":2}
+01-14 19:44:18.804 W/dalvikvm(31865): Exception Ljava/lang/RuntimeException; thrown while initializing Landroid/os/AsyncTask;
+01-14 19:44:18.804 W/dalvikvm(31865): threadid=10: thread exiting with uncaught exception (group=0x40ab1228)
+01-14 19:44:18.804 E/ACRA    (31865): ACRA caught a ExceptionInInitializerError exception for ru.vekev.evakuator. Building report.
+01-14 19:44:18.804 D/ACRA    (31865): Using default Report Fields
+01-14 19:44:18.814 D/libEGL  (31865): loaded /system/lib/egl/libGLES_android.so
+01-14 19:44:18.834 D/libEGL  (31865): loaded /system/lib/egl/libEGL_adreno200.so
+01-14 19:44:18.844 D/libEGL  (31865): loaded /system/lib/egl/libGLESv1_CM_adreno200.so
+01-14 19:44:18.844 D/libEGL  (31865): loaded /system/lib/egl/libGLESv2_adreno200.so
+01-14 19:44:18.954 D/TileRenderer(  307): glEndTilingQCOM: 0x502
+01-14 19:44:18.974 D/TileRenderer(  307): glEndTilingQCOM: 0x502
+01-14 19:44:18.974 W/MountService(  235): getVolumeState(/mnt/sdcard/ext_sd): Unknown volume
+01-14 19:44:18.974 W/MountService(  235): getVolumeState(/mnt/sdcard/usb): Unknown volume
+01-14 19:44:18.984 D/memalloc(  112): /dev/pmem: Allocated buffer base:0x42248000 size:2088960 offset:30756864 fd:41
+01-14 19:44:19.004 D/memalloc(31865): /dev/pmem: Mapped buffer base:0x52173000 size:32845824 offset:30756864 fd:61
+01-14 19:44:19.014 D/TileRenderer(  307): glEndTilingQCOM: 0x502
+01-14 19:44:19.024 V/WindowManager(  235): Finished animation in AppWindowToken{424d45e0 token=Token{419f80f8 ActivityRecord{40e5ba90 ru.vekev.evakuator/.MainActivity}}} @ 1347003005
+01-14 19:44:19.034 D/OpenGLRenderer(31865): Enabling debug mode 0
+01-14 19:44:19.054 D/TileRenderer(  307): glEndTilingQCOM: 0x502
+01-14 19:44:19.084 D/TileRenderer(  307): glEndTilingQCOM: 0x502
+01-14 19:44:19.124 W/Settings(31865): Setting data_roaming_allowed has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.
+01-14 19:44:19.124 W/Settings(31865): Setting data_roaming_blocked has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.
+01-14 19:44:19.124 W/InputManagerService(  235): Starting input on non-focused client com.android.internal.view.IInputMethodClient$Stub$Proxy@41222838 (uid=9999 pid=381)
+01-14 19:44:19.134 W/Settings(31865): Setting data_roaming_guard_allowed has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.
+01-14 19:44:19.134 W/Settings(31865): Setting data_roaming_guard_blocked has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.
+01-14 19:44:19.164 D/memalloc(  112): /dev/pmem: Allocated buffer base:0x42248000 size:2088960 offset:16379904 fd:44
+01-14 19:44:19.184 D/memalloc(31865): /dev/pmem: Mapped buffer base:0x5436c000 size:18468864 offset:16379904 fd:64
+01-14 19:44:19.184 I/ActivityManager(  235): Displayed ru.vekev.evakuator/.MainActivity: +720ms
+01-14 19:44:19.214 D/OpenGLRenderer(  381): Flushing caches (mode 2)
+01-14 19:44:19.224 D/ConnectivityService(  235): onUidRulesChanged(uid=9999, uidRules=0)
+01-14 19:44:19.374 D/memalloc(  235): /dev/pmem: Unmapping buffer base:0x5758d000 size:2088960 offset:0
+01-14 19:44:19.374 D/memalloc(  112): /dev/pmem: Freeing buffer base:0x42248000 size:2088960 offset:0 fd:38
+01-14 19:44:19.454 W/Settings(31865): Setting sms_roaming_guard_allowed has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.
+01-14 19:44:19.474 W/Settings(31865): Setting voice_roaming_allowed has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.
+01-14 19:44:19.474 W/Settings(31865): Setting voice_roaming_blocked has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.
+01-14 19:44:19.474 W/Settings(31865): Setting voice_roaming_guard_allowed has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.
+01-14 19:44:19.474 W/Settings(31865): Setting voice_roaming_guard_blocked has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.
+01-14 19:44:19.505 W/Settings(31865): Setting vzw_global_roaming_options has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.
+01-14 19:44:19.695 D/MP-Decision(  699): DOWN Ns:2.100000 Ts:270 rq:1.168067 seq:317 (Up time:1087)
+01-14 19:44:19.795 I/ACRA    (31865): READ_LOGS granted! ACRA can include LogCat and DropBox data.
+01-14 19:44:19.815 D/ACRA    (31865): Retrieving logcat output...
+
+APP_VERSION_NAME = 1.3
+AVAILABLE_MEM_SIZE = 517345280
+USER_APP_START_DATE = 2014-01-14T19:44:18.000+04:00
+CUSTOM_DATA = TOKEN = 79dc449c-6631-11e3-9a54-984be17222ba
+
+BRAND = htc_asia_wwe
+INITIAL_CONFIGURATION = compatScreenHeightDp=545
+compatScreenWidthDp=320
+compatSmallestScreenWidthDp=320
+fontScale=1.0
+fontsize=3
+hardKeyboardHidden=HARDKEYBOARDHIDDEN_YES
+keyboard=KEYBOARD_NOKEYS
+keyboardHidden=KEYBOARDHIDDEN_NO
+locale=ru_RU
+mcc=250
+mnc=1
+navigation=NAVIGATION_NONAV
+navigationHidden=NAVIGATIONHIDDEN_YES
+orientation=ORIENTATION_PORTRAIT
+screenHeightDp=614
+screenLayout=SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_YES
+screenWidthDp=360
+seq=102
+skin=default
+smallestScreenWidthDp=360
+textLayoutDirection=0
+touchscreen=TOUCHSCREEN_FINGER
+uiMode=UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO
+userSetLocale=false
+
+TOTAL_MEM_SIZE = 1188970496
+FILE_PATH = /data/data/ru.vekev.evakuator/files
+ENVIRONMENT = getDataDirectory=/data
+getDefaultStorageDirectory=/mnt/sdcard
+getDownloadCacheDirectory=/cache
+getDownloadUserCacheDirectory=/data/cache
+getExternalStorageAndroidDataDir=/mnt/sdcard/Android/data
+getExternalStorageDirectory=/mnt/sdcard
+getExternalStorageState=mounted
+getPhoneStorageDirectory=/mnt/emmc
+getPhoneStorageState=removed
+getRemovableStorageDirectory=/mnt/sdcard/ext_sd
+getRemovableStorageState=removed
+getRootDirectory=/system
+getSecureDataDirectory=/data
+getSupportedStorages=1
+getSystemSecureDirectory=/data/system
+getUsbDeviceDirectory=/mnt/sdcard/usb
+getUsbDeviceState=removed
+getVirtualRemovableStorageDirectory=/mnt/sdcard/ext_sd
+getVirtualUsbDeviceDirectory=/mnt/sdcard/usb
+isEncryptedFilesystemEnabled=false
+isExternalStorageEmulated=false
+isExternalStorageRemovable=true
+
+REPORT_ID = 6b104068-0f98-4d7a-90d0-706cffe9e85e

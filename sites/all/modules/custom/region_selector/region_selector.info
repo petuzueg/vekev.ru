@@ -1,0 +1,10 @@
+name = Region selector
+description = "Добавляет к регионам форму выбора города"
+package = vekev.ru
+version = 7.x
+core = 7.x
+
+scripts[] = js/jquery.mcdropdown.min.js
+scripts[] = js/interface.js
+stylesheets[all][] = css/jquery.mcdropdown.min.css
+stylesheets[all][] = css/region-select-style.css

@@ -1,0 +1,10 @@
+name = orderform
+description = "Модифицирует форму добавления нового заказа эвакуатора."
+package = vekev.ru
+version = 7.x
+core = 7.x
+
+stylesheets[all][] = css/orderform.css
+scripts[] = js/labelOver.js
+scripts[] = js/orderform.js
+; scripts[] = js/jquery.maskedinput.min.js

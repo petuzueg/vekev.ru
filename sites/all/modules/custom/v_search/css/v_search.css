@@ -1,0 +1,20 @@
+#views-exposed-form-search-page-page .input-group-addon {
+    display: none;
+}
+
+#block-facetapi-lnxccdqbct754trftn5ri1sop8tnbxrq .facetapi-facet-field-options li input,
+#block-facetapi-5rgxer91his80ccd9z1e7p8uxbda1s9c .facetapi-facet-field-day-and-night li input{
+    margin-right: 10px;
+}
+
+#block-facetapi-lnxccdqbct754trftn5ri1sop8tnbxrq .facetapi-facet-field-options,
+#block-facetapi-5rgxer91his80ccd9z1e7p8uxbda1s9c .facetapi-facet-field-day-and-night {
+    list-style-type: none;
+    padding: 0;
+}
+
+/*@media (min-width: 768px) {
+    .navbar-form .form-group {
+        width: 145px;
+    }
+}*/

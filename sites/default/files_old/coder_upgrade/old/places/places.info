@@ -1,0 +1,6 @@
+name = Places Node Form
+description = "Allows to make user-frendly interface for administrative regions adding."
+package = vekev.ru
+version = 7.x
+core = 7.x
+

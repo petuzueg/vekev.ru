@@ -1,0 +1,2 @@
+#!/bin/bash
+wget --quiet http://vekev.ru/sitemap.xml --output-document - | egrep -o "http://vekev.ru[^<]+" | wget -q --delete-after -i -
